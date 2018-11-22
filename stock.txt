@@ -1,0 +1,41 @@
+package <package_name>;
+public class <class_name> 
+{
+    private double leiteP = 2.90; 
+    private double ovosP = 2.90; 
+    private double farinhaP = 2.90; 
+    private double alfaceP = 2.90;
+    private double aguaP = 2.90; 
+    private double trigoP = 2.90;
+    private double carneP = 2.90;
+
+    public double Stock(int i, int ii)
+    {
+        double total = 0;
+        switch (i)
+        {
+            case 1:
+                total = leiteP * ii;
+                break;
+            case 2:
+                total = ovosP * ii;
+                break;
+            case 3:
+                total = farinhaP * ii;
+                break;
+            case 4:
+                total = alfaceP * ii;
+                break;
+            case 5:
+                total = aguaP * ii;
+                break;    
+            case 6:
+                total = trigoP * ii;
+                break;
+            case 7:
+                total = carneP * ii;
+                break;
+        }
+        return total;
+    }
+}
