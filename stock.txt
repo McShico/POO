@@ -1,0 +1,124 @@
+package <package_name>;
+public class <class_name>
+{
+    //Preços
+    private double leiteP = 2.90; //i==1
+    private double ovosP = 2.90; //i==2
+    private double farinhaP = 2.90; //i==3
+    private double alfaceP = 2.90; //i==4
+    private double aguaP = 2.90; //i==5
+    private double trigoP = 2.90; //i==6
+    private double carneP = 2.90; //i==7
+    
+    
+    //Venda de stock
+    public double Stock(int i, int ii, int iii)
+    {
+        //i seria o tipo de recurso
+        //ii seria a qualidade do recurso
+        //iii seria a quantidade desejada do recurso
+        double total = 0;
+        switch (i)
+        {
+            case 1:
+                if(ii==1)
+                {
+                    total = leiteP * ii;
+                }
+                else if(ii==2)
+                {
+                    total = (leiteP * 1.5) * ii;
+                }
+                else
+                {
+                    total = (leiteP * 2) * ii;
+                }
+                break;
+            case 2:
+                if(ii==1)
+                {
+                    total = ovosP * ii;
+                }
+                else if(ii==2)
+                {
+                    total = (ovosP * 1.5) * ii;
+                }
+                else
+                {
+                    total = (ovosP * 2) * ii;
+                }
+                break;
+            case 3:
+                if(ii==1)
+                {
+                    total = farinhaP * ii;
+                }
+                else if(ii==2)
+                {
+                    total = (farinhaP * 1.5) * ii;
+                }
+                else
+                {
+                    total = (farinhaP * 2) * ii;
+                }
+                break;
+            case 4:
+                if(ii==1)
+                {
+                    total = alfaceP * ii;
+                }
+                else if(ii==2)
+                {
+                    total = (alfaceP * 1.5) * ii;
+                }
+                else
+                {
+                    total = (alfaceP * 2) * ii;
+                }
+                break;
+            case 5:
+                if(ii==1)
+                {
+                    total = aguaP * ii;
+                }
+                else if(ii==2)
+                {
+                    total = (aguaP * 1.5) * ii;
+                }
+                else
+                {
+                    total = (aguaP * 2) * ii;
+                }
+                break;    
+            case 6:
+                if(ii==1)
+                {
+                    total = trigoP * ii;
+                }
+                else if(ii==2)
+                {
+                    total = (trigoP * 1.5) * ii;
+                }
+                else
+                {
+                    total = (trigoP * 2) * ii;
+                }
+                break;
+            case 7:
+                if(ii==1)
+                {
+                    total = carneP * ii;
+                }
+                else if(ii==2)
+                {
+                    total = (carneP * 1.5) * ii;
+                }
+                else
+                {
+                    total = (carneP * 2) * ii;
+                }
+                break;
+        }
+        return total;
+    }
+}
