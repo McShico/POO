@@ -1,11 +1,34 @@
 package poo.pkgfinal;
 
 import java.io.*;
+import java.util.ArrayList;
 
 public class start {
     public static void main(String args[]) {
         
-        Producao batatas = new Producao("Batatas");
+        System.out.println("Insira o nome do Produto:");
+        String nome = myinputs.Myinputs.umaString();
+        int qualidade;
+        do {
+           System.out.println("Insira a qualidade do produto");
+           qualidade = myinputs.Myinputs.umInt();
+        } while (qualidade < 1 || qualidade > 3);
+        
+        ArrayList<RecursosComprados> lista = new ArrayList<RecursosComprados>();
+        
+        lista.add( new RecursosComprados(nome, qualidade));
+        
+       
+        
+        
+        
+        
+        
+        
+        
+        // ********* BASE DE DADOS ***********
+        
+        /*Producao batatas = new Producao("Batatas");
         
         String nomeDoFicheiro = "ola.bin";
         try {
@@ -19,6 +42,6 @@ public class start {
             Producao arroz = (Producao) is.readObject();
             System.out.println("Nome " + arroz.nome);
             is.close();
-        } catch (Exception e) {System.out.println("ola");}
+        } catch (Exception e) {System.out.println("ola");}*/
     }   
 }
