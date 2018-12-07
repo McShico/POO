@@ -1,4 +1,4 @@
-package poo.pkgfinal;
+package projfinalpoo;
 
 public class Cliente extends Utilizador {
     
