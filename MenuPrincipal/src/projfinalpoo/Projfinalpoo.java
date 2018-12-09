@@ -1,5 +1,4 @@
-
-package projfinalpoo;
+package projfinalpoo2;
 
 import myinputs.Ler.*;
 
@@ -7,7 +6,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class Projfinalpoo {
+public class Projfinalpoo2 {
 
     public static int opcaoMenu;
 
@@ -44,7 +43,7 @@ public class Projfinalpoo {
     public static void menuLogin() {
         System.out.println("+-------------- LOGIN -------------+");
         System.out.println("|                                  |");
-        System.out.println("|        Intruduza USERNAME        |");
+        System.out.println("|        INTRODUZA USERNAME        |");
         System.out.print("|            ");
         String username = myinputs.Ler.umaString();
        
@@ -158,6 +157,7 @@ public class Projfinalpoo {
                 System.out.print("Quantidade: ");
                 
                 int EncomendaBolo = myinputs.Ler.umInt();
+                menuEncomendarProdutos(); //Retrocede menu depois de input
                 break;
 
             case 2:
@@ -173,6 +173,7 @@ public class Projfinalpoo {
                 System.out.print("Quantidade: ");
                 
                 int EncomendaIogurte = myinputs.Ler.umInt();
+                menuEncomendarProdutos(); //Retrocede menu depois de input
                 break;
 
             case 3:
@@ -188,6 +189,7 @@ public class Projfinalpoo {
                 System.out.print("Quantidade: ");
                 
                 int EncomendaSumo = myinputs.Ler.umInt();
+                menuEncomendarProdutos(); //Retrocede menu depois de input
                 break;
             case 0:
                 // Corrigir para que vá para o tipo de conta em que o utilizador fez log in
@@ -271,6 +273,9 @@ public class Projfinalpoo {
             case 1:
                 editarProdutos();
                 break;
+            case 2:
+                //editarRecursos();
+                break;
         }
     }
 
@@ -293,27 +298,242 @@ public class Projfinalpoo {
         
         switch(opcaoMenu) {
             case 1:
-                //Bolos
+                editarProdutosBolos();
                 break;
             case 2:
-                //Iogurtes
+                editarProdutosIogurtes();
                 break;
 
             case 3:
-                //Sumos
+                editarProdutosSumos();
                 break;
                 
             case 4:
-                //adicionarProduto();
+                System.out.println("--------------------------------------");
+                System.out.println("                                      ");
+                System.out.println("           ADICIONAR RECURSO          ");
+                System.out.println("                                      ");
+                System.out.println(" INSIRA O NOME DO RECURSO A ADICCIONAR");
+
+                String NomeAdicionarRecurso = myinputs.Ler.umaString();
+
+                System.out.println("                                      ");
+                System.out.println(" INSIRA O NOME DO RECURSO A ADICIONAR");
+
+                double QuantidadeAdicionarRecurso = myinputs.Ler.umDouble();
+                
+                //Metodo adicionarRecurso(NomeAdicionarRecurso, QuantidadeAdicionarRecurso);
+                
+                editarProdutos();
+                
                 break;
             case 5:
-                //removerRecurso();
+                System.out.println("--------------------------------------");
+                System.out.println("                                      ");
+                System.out.println("           REMOVER RECURSO            ");
+                System.out.println("                                      ");
+                System.out.println("  INSIRA O NOME DO RECURSO A REMOVER  ");
+
+                String NomeRemoverRecurso = myinputs.Ler.umaString();
+                
+                //Metodo removerRecurso(NomeRemoverRecurso);
+                
+                editarProdutos();
+                
                 break;
             case 0:
                 menuEditar();
                 break;
         }
     }
+    
+    public static void editarProdutosBolos(){
+        System.out.println("--------------------------------------");
+        System.out.println("                                      ");
+        System.out.println("             EDITAR BOLOS             ");
+        System.out.println("                                      ");
+        System.out.println("  QUAL O RECURSO QUE PRETENDE EDITAR? ");
+        System.out.println("                                      ");
+        System.out.println("              1. FARINHA              ");
+        System.out.println("              2. OVOS                 ");
+        System.out.println("              3. CHOCOLATE            ");
+        System.out.println("              0. RETROCEDER           ");
+
+        opcaoMenu = myinputs.Ler.umInt();
+        
+        switch(opcaoMenu){
+            case 1:
+            System.out.println("--------------------------------------");
+            System.out.println("                                      ");
+            System.out.println("        EDITAR FARINHA DOS BOLOS      ");
+            System.out.println("                                      ");
+            System.out.println("     QUANTIDADE USADA POR UNIDADE     ");
+            System.out.println("            " /* + GETFARINHABOLO + */ );
+            System.out.println("                                      ");
+            System.out.println("INSIRA NOVA QUANTIDADE USADA POR UNIDADE");
+
+            double QuantidadeNovaFarinha = myinputs.Ler.umDouble();
+            editarProdutosBolos(); //Retrocede este menu após input
+                break;
+            case 2:
+            System.out.println("--------------------------------------");
+            System.out.println("                                      ");
+            System.out.println("         EDITAR OVOS DOS BOLOS        ");
+            System.out.println("                                      ");
+            System.out.println("     QUANTIDADE USADA POR UNIDADE     ");
+            System.out.println("            " /* + GETOVOSBOLO + */ );
+            System.out.println("                                      ");
+            System.out.println("INSIRA NOVA QUANTIDADE USADA POR UNIDADE");
+
+            double QuantidadeNovaOvos = myinputs.Ler.umDouble();
+            editarProdutosBolos(); //Retrocede este menu após input
+                break;
+            case 3:
+            System.out.println("--------------------------------------");
+            System.out.println("                                      ");
+            System.out.println("       EDITAR CHOCOLATE DOS BOLOS     ");
+            System.out.println("                                      ");
+            System.out.println("     QUANTIDADE USADA POR UNIDADE     ");
+            System.out.println("            " /* + GETOVOSBOLO + */ );
+            System.out.println("                                      ");
+            System.out.println("INSIRA NOVA QUANTIDADE USADA POR UNIDADE");
+
+            double QuantidadeNovaChocolate = myinputs.Ler.umDouble();
+            editarProdutosBolos(); //Retrocede este menu após input
+                break;
+            case 0:
+                editarProdutos();
+                break;
+        }
+        
+        
+    }
+    
+    public static void editarProdutosIogurtes(){
+        System.out.println("--------------------------------------");
+        System.out.println("                                      ");
+        System.out.println("             EDITAR IOGURTES          ");
+        System.out.println("                                      ");
+        System.out.println("  QUAL O RECURSO QUE PRETENDE EDITAR? ");
+        System.out.println("                                      ");
+        System.out.println("              1. LEITE                ");
+        System.out.println("              2. AÇUCAR               ");
+        System.out.println("              3. MORANGO              ");
+        System.out.println("              0. RETROCEDER           ");
+
+        opcaoMenu = myinputs.Ler.umInt();
+        
+        switch(opcaoMenu){
+            case 1:
+            System.out.println("--------------------------------------");
+            System.out.println("                                      ");
+            System.out.println("       EDITAR LEITE DOS IOGURTES      ");
+            System.out.println("                                      ");
+            System.out.println("     QUANTIDADE USADA POR UNIDADE     ");
+            System.out.println("            " /* + GETLEITEIOGURTES + */ );
+            System.out.println("                                      ");
+            System.out.println("INSIRA NOVA QUANTIDADE USADA POR UNIDADE");
+
+            double QuantidadeNovaLeite = myinputs.Ler.umDouble();
+            editarProdutosIogurtes(); //Retrocede este menu após input
+                break;
+            case 2:
+            System.out.println("--------------------------------------");
+            System.out.println("                                      ");
+            System.out.println("      EDITAR AÇUCAR DOS IOGURTES      ");
+            System.out.println("                                      ");
+            System.out.println("     QUANTIDADE USADA POR UNIDADE     ");
+            System.out.println("            " /* + GETAÇUCARIOGURTES + */ );
+            System.out.println("                                      ");
+            System.out.println("INSIRA NOVA QUANTIDADE USADA POR UNIDADE");
+
+            double QuantidadeNovaAcucar = myinputs.Ler.umDouble();
+            editarProdutosIogurtes(); //Retrocede este menu após input
+                break;
+            case 3:
+            System.out.println("--------------------------------------");
+            System.out.println("                                      ");
+            System.out.println("     EDITAR MORANGOS DOS IOGURTES     ");
+            System.out.println("                                      ");
+            System.out.println("     QUANTIDADE USADA POR UNIDADE     ");
+            System.out.println("            " /* + GETMORANGOSIOGURTES + */ );
+            System.out.println("                                      ");
+            System.out.println("INSIRA NOVA QUANTIDADE USADA POR UNIDADE");
+
+            double QuantidadeNovaMorangos = myinputs.Ler.umDouble();
+            editarProdutosIogurtes(); //Retrocede este menu após input
+                break;
+            case 0:
+                editarProdutos();
+                break;
+        }
+        
+        
+    }
+    
+    public static void editarProdutosSumos(){
+        System.out.println("--------------------------------------");
+        System.out.println("                                      ");
+        System.out.println("              EDITAR SUMOS            ");
+        System.out.println("                                      ");
+        System.out.println("  QUAL O RECURSO QUE PRETENDE EDITAR? ");
+        System.out.println("                                      ");
+        System.out.println("              1. ÁGUA                ");
+        System.out.println("              2. LARANJA               ");
+        System.out.println("              3. MARACUJÀ              ");
+        System.out.println("              0. RETROCEDER           ");
+
+        opcaoMenu = myinputs.Ler.umInt();
+        
+        switch(opcaoMenu){
+            case 1:
+            System.out.println("--------------------------------------");
+            System.out.println("                                      ");
+            System.out.println("         EDITAR ÁGUA DOS SUMOS        ");
+            System.out.println("                                      ");
+            System.out.println("     QUANTIDADE USADA POR UNIDADE     ");
+            System.out.println("            " /* + GETLEITEIOGURTES + */ );
+            System.out.println("                                      ");
+            System.out.println("INSIRA NOVA QUANTIDADE USADA POR UNIDADE");
+
+            double QuantidadeNovaAgua = myinputs.Ler.umDouble();
+            editarProdutosSumos(); //Retrocede este menu após input
+                break;
+            case 2:
+            System.out.println("--------------------------------------");
+            System.out.println("                                      ");
+            System.out.println("       EDITAR LARANJA DOS SUMOS       ");
+            System.out.println("                                      ");
+            System.out.println("     QUANTIDADE USADA POR UNIDADE     ");
+            System.out.println("            " /* + GETAÇUCARIOGURTES + */ );
+            System.out.println("                                      ");
+            System.out.println("INSIRA NOVA QUANTIDADE USADA POR UNIDADE");
+
+            double QuantidadeNovaLaranja = myinputs.Ler.umDouble();
+            editarProdutosSumos(); //Retrocede este menu após input
+                break;
+            case 3:
+            System.out.println("--------------------------------------");
+            System.out.println("                                      ");
+            System.out.println("       EDITAR MARACUJÁ DOS SUMOS      ");
+            System.out.println("                                      ");
+            System.out.println("     QUANTIDADE USADA POR UNIDADE     ");
+            System.out.println("            " /* + GETMORANGOSIOGURTES + */ );
+            System.out.println("                                      ");
+            System.out.println("INSIRA NOVA QUANTIDADE USADA POR UNIDADE");
+
+            double QuantidadeNovaMaracujá = myinputs.Ler.umDouble();
+            editarProdutosSumos(); //Retrocede este menu após input
+                break;
+            case 0:
+                editarProdutos();
+                break;
+        }
+        
+        
+    }
+    
+    
 
     public static void main(String[] args) throws IOException {
         
@@ -466,4 +686,5 @@ public class Projfinalpoo {
 //        }
 //        }
     }
+    
 }
