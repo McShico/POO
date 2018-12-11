@@ -489,9 +489,6 @@ public class Projfinalpoo {
             String nomeRecurso = myinputs.Ler.umaString();
             stringRecursosNecessarios[i] = nomeRecurso;
             
-            
-            // ********************************************************************************************BUG************************************
-            
             for (int j = 0; j < arrayRecurso.size(); j++) {
                 if (arrayRecurso.get(j).getNome().equals(nomeRecurso)) {
                     System.out.println("O recurso introduzido ainda não exite. Pretende adiciona-lo agora?");
@@ -635,9 +632,7 @@ public class Projfinalpoo {
         
         System.out.println("|    QUANTIADE EXISTENTE EM STOCK CASO TENHA    |");
         
-        double adicionarRecursoStock = myinputs.Ler.umDouble(); // Está a restringir para um Int porque a quantidade do
-                                                          // produto tem de ser inteiro apesar de na class ter double. 
-                                                          // Double será para os recursos
+        double adicionarRecursoStock = myinputs.Ler.umDouble();
 
         System.out.println("| Insira o custo do recurso |");
         double custo = myinputs.Ler.umDouble();
