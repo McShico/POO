@@ -5,9 +5,14 @@ import myinputs.Ler.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import myinputs.Ler;
 
 public class Projfinalpoo {
+    
+    public ArrayList ProdutoERecurso = new ArrayList<ProdutoERecurso>();
+    public ArrayList Cliente = new ArrayList<Cliente>();
+    public ArrayList Gestor = new ArrayList<Gestor>();
 
     public static int opcaoMenu;
 
@@ -112,6 +117,7 @@ public class Projfinalpoo {
         System.out.println("|                                  |");
         System.out.println("|     1. ENCOMENDAR PRODUTOS       |");
         System.out.println("|     2. CONSULTAR MOVIMENTOS      |");
+        System.out.println("|     3. CARREGAR CONTA            |");
         System.out.println("|     0. TERMINAR SESSÃO           |");
         System.out.println("|                                  |");
         System.out.println("+----------------------------------+");
@@ -126,6 +132,11 @@ public class Projfinalpoo {
                 break;
             case 2:
                 menuConsultarMovimentos();
+                break;
+            case 3:
+                
+                // Carregar a Conta
+                
                 break;
             case 0:
                 //menuPrincipal(); NAO ELIMINAR. VERSAO FINAL!!!
