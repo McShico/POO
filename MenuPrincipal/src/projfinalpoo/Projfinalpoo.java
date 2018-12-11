@@ -91,7 +91,6 @@ public class Projfinalpoo {
         System.out.println("|                                  |");
         System.out.println("|          1 - Cliente             |");
         System.out.println("|          2 - Gestor              |");
-        System.out.println("|          3 - Fornecedor          |");
         System.out.println("|                                  |");
         System.out.println("+----------------------------------+");
         System.out.println();
