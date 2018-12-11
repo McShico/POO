@@ -850,38 +850,110 @@ public class Projfinalpoo {
         
         switch(opcaoMenu){
             case 1:
+                System.out.println("+-------------------------------------+");
+                System.out.println("|                                     |");
+                System.out.println("|        INSIRA A QUANTIDADE DE       |");
+                System.out.println("|         FARINHA A ENCOMENDAR        |");
+                System.out.println("|                                     |");
+                System.out.println("+-------------------------------------+");
+                System.out.println();
+                System.out.print("Quantidade: ");
                 /*Metodo EncomendarRecurso(Farinha) */
                 fazerPedidoFornecedor();
                 break;
             case 2:
+                System.out.println("+-------------------------------------+");
+                System.out.println("|                                     |");
+                System.out.println("|        INSIRA A QUANTIDADE DE       |");
+                System.out.println("|          OVOS A ENCOMENDAR          |");
+                System.out.println("|                                     |");
+                System.out.println("+-------------------------------------+");
+                System.out.println();
+                System.out.print("Quantidade: ");
                 /*Metodo EncomendarRecurso(Ovos) */
                 fazerPedidoFornecedor();
                 break;
             case 3:
+                System.out.println("+-------------------------------------+");
+                System.out.println("|                                     |");
+                System.out.println("|        INSIRA A QUANTIDADE DE       |");
+                System.out.println("|        CHOCOLATE A ENCOMENDAR       |");
+                System.out.println("|                                     |");
+                System.out.println("+-------------------------------------+");
+                System.out.println();
+                System.out.print("Quantidade: ");
                 /*Metodo EncomendarRecurso(Chocolate) */
                 fazerPedidoFornecedor();
                 break;
             case 4:
+                System.out.println("+-------------------------------------+");
+                System.out.println("|                                     |");
+                System.out.println("|        INSIRA A QUANTIDADE DE       |");
+                System.out.println("|          LEITE A ENCOMENDAR         |");
+                System.out.println("|                                     |");
+                System.out.println("+-------------------------------------+");
+                System.out.println();
+                System.out.print("Quantidade: ");
                 /*Metodo EncomendarRecurso(Leite) */
                 fazerPedidoFornecedor();
                 break;
             case 5:
+                System.out.println("+-------------------------------------+");
+                System.out.println("|                                     |");
+                System.out.println("|        INSIRA A QUANTIDADE DE       |");
+                System.out.println("|          AÇUCAR A ENCOMENDAR        |");
+                System.out.println("|                                     |");
+                System.out.println("+-------------------------------------+");
+                System.out.println();
+                System.out.print("Quantidade: ");
                 /*Metodo EncomendarRecurso(Açucar) */
                 fazerPedidoFornecedor();
                 break;
             case 6:
+                System.out.println("+-------------------------------------+");
+                System.out.println("|                                     |");
+                System.out.println("|        INSIRA A QUANTIDADE DE       |");
+                System.out.println("|         MORANGO A ENCOMENDAR        |");
+                System.out.println("|                                     |");
+                System.out.println("+-------------------------------------+");
+                System.out.println();
+                System.out.print("Quantidade: ");
                 /*Metodo EncomendarRecurso(Morango) */
                 fazerPedidoFornecedor();
                 break;
             case 7:
+                System.out.println("+-------------------------------------+");
+                System.out.println("|                                     |");
+                System.out.println("|        INSIRA A QUANTIDADE DE       |");
+                System.out.println("|           AGUA A ENCOMENDAR         |");
+                System.out.println("|                                     |");
+                System.out.println("+-------------------------------------+");
+                System.out.println();
+                System.out.print("Quantidade: ");
                 /*Metodo EncomendarRecurso(Água) */
                 fazerPedidoFornecedor();
                 break;
             case 8:
+                System.out.println("+-------------------------------------+");
+                System.out.println("|                                     |");
+                System.out.println("|        INSIRA A QUANTIDADE DE       |");
+                System.out.println("|         LARANJA A ENCOMENDAR        |");
+                System.out.println("|                                     |");
+                System.out.println("+-------------------------------------+");
+                System.out.println();
+                System.out.print("Quantidade: ");
                 /*Metodo EncomendarRecurso(Laranja) */
                 fazerPedidoFornecedor();
                 break;
             case 9:
+                System.out.println("+-------------------------------------+");
+                System.out.println("|                                     |");
+                System.out.println("|        INSIRA A QUANTIDADE DE       |");
+                System.out.println("|         MARACUJÁ A ENCOMENDAR       |");
+                System.out.println("|                                     |");
+                System.out.println("+-------------------------------------+");
+                System.out.println();
+                System.out.print("Quantidade: ");
                 /*Metodo EncomendarRecurso(Maracujá) */
                 fazerPedidoFornecedor();
                 break;
