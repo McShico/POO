@@ -66,8 +66,6 @@ public class Projfinalpoo {
             menuCliente();
         } else if(tipoDeConta.equals("Gestor")) {
             menuGestor();
-        } else if(tipoDeConta.equals("Fornecedor")) {
-            //menuFornecedor();
         }
     }
 
@@ -309,7 +307,7 @@ public class Projfinalpoo {
                 fazerPedidoFornecedor();
                 break;
             case 4:
-                //consultarPedidosDeClientes();
+                consultarPedidoCliente();
                 break;
             case 0:
                 menuPrincipal();
@@ -678,7 +676,7 @@ public class Projfinalpoo {
             System.out.println("                                      ");
             System.out.println("+-------------------------------------+");
             System.out.println();
-            System.out.print("Numero de Recursos: ");
+            System.out.print("Quantidade: ");
 
             double quantidadeAdicionarRecurso = myinputs.Ler.umDouble();
 
@@ -884,157 +882,48 @@ public class Projfinalpoo {
         
     }
     
+    public static void consultarPedidoCliente(){
+        System.out.println("+-------------------------------------+");
+        System.out.println("                                      ");
+        System.out.println("           PEDIDOS CLIENTE            ");
+        System.out.println("                                      ");
+        System.out.println("           BOLOS: "); /* + getMetodoEncomendaBolo */
+        System.out.println("                                      ");
+        System.out.println("           IOGURTES: "); /* + getMetodoEncomendaIgurte */
+        System.out.println("                                      ");
+        System.out.println("           SUMOS: "); /* + getMetodoEncomedaSumo */
+        System.out.println("                                      ");
+        System.out.println("           1. PRODUZIR ENCOMENDAS     ");
+        System.out.println("                                      ");
+        System.out.println("           0. RETROCEDER              ");
+        System.out.println("                                      ");
+        System.out.println("+-------------------------------------+");
+        System.out.println();
+        System.out.print("Opção: ");
+        
+        opcaoMenu = myinputs.Ler.umInt();
+        
+        switch(opcaoMenu){
+            case 1:
+                /* Metodo FabricarBolo( getMetodoEncomendaBolo ) */
+                /* Metodo FabricarIogurte( getMetodoEncomendaIgurte ) */
+                /* Metodo FabricarSumo( getMetodoEncomedaSumo ) */
+                
+                /* Metodo EnviarBolo( getMetodoEncomendaBolo ) */
+                /* Metodo EnviarIogurte( getMetodoEncomendaIgurte ) */
+                /* Metodo EnviarSumo( getMetodoEncomedaSumo ) */
+                break;
+            case 0:
+                menuGestor();
+                break;
+        }
+    }
+    
 
     public static void main(String[] args) throws IOException {
         
         menuPrincipal();
-
-//
-//        switch (OpcaoMenuUserGestorEditarProdutosBolos) {
-//        case 1:
-//            System.out.println("--------------------------------------");
-//            System.out.println("                                      ");
-//            System.out.println("         EDITAR BOLOS FARINHA         ");
-//            System.out.println("                                      ");
-//            System.out.println("     QUANTIDADE USADA POR UNIDADE     ");
-//            System.out.println("            " /* + GETFARINHABOLO + */);
-//            System.out.println("                                      ");
-//            System.out.println("INSIRA NOVA QUANTIDADE USADA POR UNIDADE");
-//
-//            double QuantidadeNovaFarinha = myinputs.Ler.umDouble();
-//
-//        break;
-//        case 2:
-//            System.out.println("--------------------------------------");
-//            System.out.println("                                      ");
-//            System.out.println("         EDITAR BOLOS OVOS            ");
-//            System.out.println("                                      ");
-//            System.out.println("     QUANTIDADE USADA POR UNIDADE     ");
-//            System.out.println("            " /* + GETFARINHABOLO + */);
-//            System.out.println("                                      ");
-//            System.out.println("INSIRA NOVA QUANTIDADE USADA POR UNIDADE");
-//
-//            double QuantidadeNovaOvos = myinputs.Ler.umDouble();
-//
-//        break;
-//        case 3:
-//            System.out.println("--------------------------------------");
-//            System.out.println("                                      ");
-//            System.out.println("         EDITAR BOLOS CHOCOLATE       ");
-//            System.out.println("                                      ");
-//            System.out.println("     QUANTIDADE USADA POR UNIDADE     ");
-//            System.out.println("            " /* + GETFARINHABOLO + */);
-//            System.out.println("                                      ");
-//            System.out.println("INSIRA NOVA QUANTIDADE USADA POR UNIDADE");
-//
-//            double QuantidadeNovaChocolate = myinputs.Ler.umDouble();
-//
-//        break;
-//        case 4:
-//            System.out.println("--------------------------------------");
-//            System.out.println("                                      ");
-//            System.out.println("           ADICIONAR RECURSO          ");
-//            System.out.println("                                      ");
-//            System.out.println(" INSIRA O NOME DO RECURSO A ADICCIONAR");
-//
-//            String NomeAdicionarRecurso = myinputs.Ler.umaString();
-//
-//            System.out.println("                                      ");
-//            System.out.println(" INSIRA O NOME DO RECURSO A ADICCIONAR");
-//
-//            double QuantidadeAdicionarRecurso = myinputs.Ler.umDouble();
-//
-//        break;
-//        case 5:
-//            System.out.println("--------------------------------------");
-//            System.out.println("                                      ");
-//            System.out.println("           REMOVER RECURSO            ");
-//            System.out.println("                                      ");
-//            System.out.println("  INSIRA O NOME DO RECURSO A REMOVER  ");
-//
-//            String NomeRemoverRecurso = myinputs.Ler.umaString();
-//
-//        break;
-//        case 0:
-//            OpcaoMenuUserGestorEditarProdutos = -1;
-//        break;    
-//        }
-//        break;
-//        case 2:
-//
-//        break;
-//        case 3:
-//
-//        break;
-//        case 4:
-//
-//        break;
-//        case 5:
-//
-//        break;
-//        case 0:
-//        OpcaoMenuUserGestorEditarProdutos = -1;
-//        break;
-//        }
-//        }
-//        }    
-//        break;
-//
-//        case 2:
-//        System.out.println("--------------------------------------");
-//        System.out.println("                                      ");
-//        System.out.println("      CADA IOGURTE CUSTA X EUROS      ");
-//        System.out.println("                                      ");
-//        System.out.println("QUANTAS UNIDADES PRETENDE ENCOMENDAR? ");
-//
-//        int EncomendaIogurtes = myinputs.Ler.umInt();
-//        break;
-//
-//        case 3:
-//        System.out.println("--------------------------------------");
-//        System.out.println("                                      ");
-//        System.out.println("        CADA SUMO CUSTA X EUROS       ");
-//        System.out.println("                                      ");
-//        System.out.println("QUANTAS UNIDADES PRETENDE ENCOMENDAR? ");
-//
-//        int EncomendaSumos = myinputs.Ler.umInt();
-//        break;
-//
-//        //RETROCEDER--------------------------------------------
-//        case 0:
-//        OpcaoMenuUserGestorEditar = -1;
-//        OpcaoMenuUserGestorEditar1 = -1;
-//        break;
-//        }
-//        }
-//        break;
-//
-//        //MENU CONSULTAR SALDO-----------------------------
-//        case 2:
-//
-//        break;
-//        //TERMINAR SESSÃO--------------------------------------------
-//        case 0:
-//        OpcaoMenuUserGestor = -1;
-//        break;
-//
-//        }   
-//
-//        }
-//
-//
-//        break;
-//        //-------------------------------------
-//        //-------------------------------------
-//
-//        //-------------------REGISTO------------------------
-//        case 2:
-//
-//
-//        break;
-//        }
-//        }
-//        }
+        
     }
     
 }
