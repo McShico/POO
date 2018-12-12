@@ -1,11 +1,21 @@
 package projfinalpoo;
 
 import myinputs.Ler.*;
-
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStreamWriter;
+import java.security.MessageDigest;
 import java.util.ArrayList;
+import javax.xml.bind.DatatypeConverter;
 import myinputs.Ler;
 
 public class Projfinalpoo {
@@ -22,7 +32,7 @@ public class Projfinalpoo {
     
     // ********************** Login ****************************
 
-    public static void menuPrincipal() {
+    public static void menuPrincipal() throws Exception {
         System.out.println("+-------------- MENU --------------+");
         System.out.println("|                                  |");
         System.out.println("|      1 - Efetuar LOGIN           |");
@@ -52,7 +62,7 @@ public class Projfinalpoo {
         }
     }
 
-    public static void menuLogin() {
+    public static void menuLogin() throws Exception {
         System.out.println("+-------------- LOGIN -------------+");
         System.out.println("|                                  |");
         System.out.println("|        INTRODUZA USERNAME        |");
@@ -68,19 +78,103 @@ public class Projfinalpoo {
         System.out.println("+----------------------------------+");
         
         
-        // Função que vem do Xico com a confirmação da conta
-        
-        // Exemplificar
-        String tipoDeConta = "Cliente";
-        
-        if (tipoDeConta.equals("Cliente")) {
-            menuCliente();
-        } else if(tipoDeConta.equals("Gestor")) {
-            menuGestor();
+        logIn(username, password);
+    }
+    
+    public static void logIn(String name, String pass) throws Exception
+    {
+        try
+        {
+            //conta cada linha na base de dados
+            FileInputStream fis_count = new FileInputStream("data_base.txt");
+            DataInputStream in_count = new DataInputStream(fis_count);
+            BufferedReader br_count = new BufferedReader(new InputStreamReader(in_count));
+            String strLine_count;
+            int i = 0;
+            while((strLine_count = br_count.readLine()) != null)
+            {
+                i = i + 1;
+            }
+            in_count.close();
+            
+            //dá print de cada linha na base de dados
+            boolean check = false;
+            boolean check2 = true;
+            int n = 0;
+            FileInputStream fis = new FileInputStream("data_base.txt");
+            DataInputStream in = new DataInputStream(fis);
+            BufferedReader br = new BufferedReader(new InputStreamReader(in));
+            String[] list = new String[i];
+            String strLine, cType="", cPass="", cName="";
+            int ii = 0;
+            while((strLine = br.readLine()) != null)
+            {
+                list[ii] = strLine;
+                if(n == (ii - 1))
+                {
+                    cType = list[ii];
+                }
+                if(cType.equals("Tipo: Gestor") && n == (ii - 2))
+                {
+                    String access = list[ii];
+                    if(access.equals("Acesso: Negado"))
+                    {
+                        System.err.println("O SEU ACESSO ESTÁ NEGADO");
+                        check2 = false;
+                    }
+                    else
+                    {
+                        check2 = true;
+                    }
+                }
+                cName = "Nome: " + name;
+                cPass = "Password: " + getHash(pass.getBytes(), "SHA-256");
+                if(list[ii].equals(cPass))
+                {
+                    if(list[ii-1].equals(cName))
+                    {
+                        check = true;
+                        n = ii;
+                    }
+                }
+                ii++;
+            }
+            in.close();
+            
+            if(check==true)
+            {
+                switch(cType)
+                {
+                    case "Tipo: Cliente":
+                        menuCliente();
+                        break;
+                    case "Tipo: Gestor":
+                        if(check2 == true)
+                        {
+                            menuGestor();
+                        }
+                        else
+                        {
+                            menuPrincipal();
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                System.err.println("ERRO");
+                menuPrincipal();
+            }
+        }
+        catch(Exception e)
+        {
+            System.err.println("Error" + e.getMessage());
         }
     }
 
-    public static void menuRegistar() {
+    public static void menuRegistar() throws Exception {
         System.out.println("+------------ REGISTO -------------+");
         System.out.println("|                                  |");
         System.out.println("|        INTRODUZA USERNAME        |");
@@ -91,32 +185,136 @@ public class Projfinalpoo {
         System.out.println("|        INTRODUZA PASSWORD        |");
         System.out.print("|         ");
         String novaPassword = myinputs.Ler.umaString();
+        String novoTipoDeConta = "";
+        for(;;)
+        {
+            System.out.println("|                                  |");
+            System.out.println("|     INTRODUZA O TIPO DE CONTA    |");
+            System.out.println("|                                  |");
+            System.out.println("|          1 - Cliente             |");
+            System.out.println("|          2 - Gestor              |");
+            System.out.println("|                                  |");
+            System.out.println("+----------------------------------+");
+            System.out.println();
+            System.out.print("Opção: ");
+        
+            novoTipoDeConta = myinputs.Ler.umaString();
+        
+            System.out.println("|                                  |");
+            System.out.println("|                                  |");
 
-        System.out.println("|                                  |");
-        System.out.println("|     INTRODUZA O TIPO DE CONTA    |");
-        System.out.println("|                                  |");
-        System.out.println("|          1 - Cliente             |");
-        System.out.println("|          2 - Gestor              |");
-        System.out.println("|                                  |");
-        System.out.println("+----------------------------------+");
-        System.out.println();
-        System.out.print("Opção: ");
+            if(novoTipoDeConta.equals("1"))
+            {
+                novoTipoDeConta = "Cliente";
+            }
+            else if(novoTipoDeConta.equals("2"))
+            {
+                novoTipoDeConta = "Gestor";
+            }
+            
+            if(novoTipoDeConta.equals("Cliente") || novoTipoDeConta.equals("Gestor"))
+            {
+                break;
+            }
+            else
+            {
+                System.err.println("TIPO DE CONTA INDISPONÍVEL");
+                menuPrincipal();
+            }
+        }
         
-        int novoTipoDeConta = myinputs.Ler.umInt();
+        signUp(novoUsername, novaPassword, novoTipoDeConta);
+    }
+    
+    public static void signUp(String name, String pass, String type) throws Exception
+    {
+        int tipo = 0;
+        try
+        {
+            //conta cada linha na base de dados
+            FileInputStream fis_count = new FileInputStream("data_base.txt");
+            DataInputStream in_count = new DataInputStream(fis_count);
+            BufferedReader br_count = new BufferedReader(new InputStreamReader(in_count));
+            String strLine_count;
+            int i = 0;
+            while((strLine_count = br_count.readLine()) != null)
+            {
+                i = i + 1;
+            }
+            in_count.close();
+            
+            //dá print de cada linha na base de dados
+            FileInputStream fis = new FileInputStream("data_base.txt");
+            DataInputStream in = new DataInputStream(fis);
+            BufferedReader br = new BufferedReader(new InputStreamReader(in));
+            String[] list = new String[i];
+            String strLine;
+            int ii = 0;
+            while((strLine = br.readLine()) != null)
+            {
+                list[ii] = strLine;
+                ii++;
+            }
+            in.close();
+            
+            //rescreve tudo o que já existia na base de dados + nova informação
+            boolean check = true;
+            FileOutputStream fos = new FileOutputStream("data_base.txt");
+            DataOutputStream out = new DataOutputStream(fos);
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(out));
+            for(int iii = 0; iii < i; iii++)
+            {
+                bw.write(list[iii] + "\n");
+                if(list[iii].equals("Nome: " + name))
+                {
+                    check = false;
+                }
+            }
+            if(check==true)
+            {
+                String line = "Nome: " + name + "\nPassword: " + getHash(pass.getBytes(), "SHA-256") + "\nTipo: " + type + "\nAcesso: Negado";
+                bw.write(line);            
+                if(type.equals("Cliente"))
+                {
+                    tipo = 1;
+                }
+                else if(type.equals("Gestor"))
+                {
+                    tipo = 2;
+                }
+            }
+            else
+            {
+                System.err.println("NOME DE UTILIZADOR A SER UTILIZADO");
+            }
+            bw.close();
+            out.close();
+        }
+        catch(Exception e)
+        {
+            System.err.println("Error" + e.getMessage());
+        }
         
-        System.out.println("|                                  |");
-        System.out.println("|                                  |");
-        
-        menuLogin();
-        
-        
-        // Informação vai para a função de registo do Xico
+        switch(tipo)
+        {
+            case 0:
+                menuPrincipal();
+                break;
+            case 1:
+                menuCliente();
+                break;
+            case 2:
+                System.out.println("Para poder aceder á sua conta de gestor terá de aguardar que outro gestor altere o seu acesso");
+                menuPrincipal();
+            default:
+                break;
+        }
     }
 
     // ************************ Cliente ************************
     
-    public static void menuCliente() {
-        System.out.println("+------------- Cliente ------------+" /* Xico.getUser()*/ );
+    public static void menuCliente() throws Exception {
+        System.out.println("+------------- Cliente ------------+");
         System.out.println("|                                  |");
         System.out.println("|     SALDO:" /* + Fabio.getSaldo() */);
         System.out.println("|                                  |");
@@ -150,8 +348,8 @@ public class Projfinalpoo {
         }
     }
     
-    public static void menuEncomendarProdutos() {
-        System.out.println("+--------------Cliente-------------+" /* Xico.getUser()*/);
+    public static void menuEncomendarProdutos() throws Exception {
+        System.out.println("+--------------Cliente-------------+");
         System.out.println("+-------------PRODUTOS-------------+");
         System.out.println("|                                  |");
         System.out.println("|      SALDO: " /* + GETSALDO */);
@@ -266,8 +464,7 @@ public class Projfinalpoo {
         }
     }
 
-    public static void menuConsultarMovimentos() {
-        System.out.println("-----------" /* Xico.getUser()*/);
+    public static void menuConsultarMovimentos() throws Exception {
         System.out.println("+--------------MOVIMENTOS-------------+");
         System.out.println("|                                     |");
         System.out.println("|        SALDO: /*GETSALDO*/          |");
@@ -299,8 +496,8 @@ public class Projfinalpoo {
     
     // ************************ Gestor *********************************
     
-    public static void menuGestor() {
-        System.out.println("+--------------" /* Xico.getUser()*/);
+    public static void menuGestor() throws Exception {
+        System.out.println("+----------------GESTOR----------------+");
         System.out.println("|                                      |");
         System.out.println("|     SALDO: /*GETSALDO*/              |");
         System.out.println("|                                      |");
@@ -308,6 +505,7 @@ public class Projfinalpoo {
         System.out.println("|     2. CONSULTAR MOVIMENTOS          |");
         System.out.println("|     3. COMPRAR RECURSOS AO FORNECEDOR|");
         System.out.println("|     4. CONSULTAR PEDIDOS DE CLIENTES |");
+        System.out.println("|     5. MUDAR ACEESO A UM GESTOR      |");
         System.out.println("|     0. TERMINAR SESSÃO               |");
         System.out.println("|                                      |");
         System.out.println("+--------------------------------------+");
@@ -329,14 +527,71 @@ public class Projfinalpoo {
             case 4:
                 consultarPedidoCliente();
                 break;
+            case 5:
+                mudarAcesso();
+                break;
             case 0:
                 menuPrincipal();
                 break;
         }
     }
-
-    public static void menuEditar() {
-        System.out.println("---------------" /* Xico.getUser()*/);
+    
+// ********************** Mudar Acesso a um (ou vários) Gestor(es) ********************** //
+    public static void mudarAcesso() throws Exception
+    {
+        System.out.println("+---------------MUDAR ACESSO---------------+");
+        System.out.println("|                                          |");
+        System.out.println("| Deseja mudar o acesso de que utilizador: |");
+        System.out.println("|                                          |");
+        //
+            try
+            {
+                //conta cada linha na base de dados
+                FileInputStream fis_count = new FileInputStream("data_base.txt");
+                DataInputStream in_count = new DataInputStream(fis_count);
+                BufferedReader br_count = new BufferedReader(new InputStreamReader(in_count));
+                String strLine_count;
+                int i = 0;
+                while((strLine_count = br_count.readLine()) != null)
+                {
+                    i = i + 1;
+                }
+                in_count.close();
+            
+                //dá print de cada linha na base de dados
+                FileInputStream fis = new FileInputStream("data_base.txt");
+                DataInputStream in = new DataInputStream(fis);
+                BufferedReader br = new BufferedReader(new InputStreamReader(in));
+                String[] list = new String[i];
+                ArrayList gList = new ArrayList();
+                String strLine;
+                int ii = 0;
+                int iii = 1;
+                while((strLine = br.readLine()) != null)
+                {
+                    list[ii] = strLine;
+                    if(list[ii].equals("Acesso: Negado") || list[ii].equals("Acesso: Permitido"))
+                    {
+                        System.out.println("| " + iii + ": " + list[(ii-2)]);
+                        gList.add(list[(ii-2)]);
+                        iii++;
+                    }
+                    ii++;
+                }
+                in.close();
+            }
+            catch(IOException e)
+            {
+                System.err.println(e.getMessage());
+            }
+            System.out.println("|                                          |");
+            System.out.print("| Opção: ");
+            int op = myinputs.Ler.umInt();
+        //    
+    }
+// ********************** Mudar Acesso a um (ou vários) Gestor(es) ********************** //
+    
+    public static void menuEditar() throws Exception {
         System.out.println("+--------------EDITAR-----------------+");
         System.out.println("|                                     |");
         System.out.println("|        SALDO: /*GETSALDO*/          |");
@@ -367,7 +622,7 @@ public class Projfinalpoo {
 // *********************************************** Produtos ***************************************
 
 
-    public static void editarProdutos() {
+    public static void editarProdutos() throws Exception {
         System.out.println("+-------------------------------------+");
         System.out.println("|                                     |");
         System.out.println("|            EDITAR PRODUTOS          |");
@@ -402,7 +657,7 @@ public class Projfinalpoo {
         }
     }
     
-    public static void editarProdutoExistente(){
+    public static void editarProdutoExistente() throws Exception{
         
         System.out.println("+-------------------------------------+");
         System.out.println("|                                     |");
@@ -465,7 +720,7 @@ public class Projfinalpoo {
     }
    
     
-    public static void AdicionarProdutos() {
+    public static void AdicionarProdutos() throws Exception {
         System.out.println("+-------------------------------------+");
         System.out.println("|                                     |");
         System.out.println("|           ADICIONAR PRODUTO         |");
@@ -512,7 +767,7 @@ public class Projfinalpoo {
         arrayProduto.add(classProduto);
     }
     
-    public static void RemoverProdutos() {
+    public static void RemoverProdutos() throws Exception {
         System.out.println("+-------------------------------------+");
         System.out.println("                                      ");
         System.out.println("           REMOVER PRODUTO            ");
@@ -531,7 +786,7 @@ public class Projfinalpoo {
     
     // *********************************************** Recursos ***************************************
     
-    public static void editarRecursos() {
+    public static void editarRecursos() throws Exception {
         System.out.println("+-------------------------------------+");
         System.out.println("|                                     |");
         System.out.println("|            EDITAR RECURSOS          |");
@@ -566,7 +821,7 @@ public class Projfinalpoo {
         }
     }
     
-    public static void editarRecursoExistente() {
+    public static void editarRecursoExistente() throws Exception {
         
         System.out.println("+-------------------------------------+");
         System.out.println("|                                     |");
@@ -618,7 +873,7 @@ public class Projfinalpoo {
         
     }
     
-    public static void adicionarRecurso() {
+    public static void adicionarRecurso() throws Exception {
         System.out.println("+-------------------------------------+");
         System.out.println("|                                     |");
         System.out.println("|           ADICIONAR RECURSO         |");
@@ -642,7 +897,7 @@ public class Projfinalpoo {
         arrayRecurso.add(classRecurso);
     }
     
-    public static void menuConsultarMovimentosGestor() {
+    public static void menuConsultarMovimentosGestor() throws Exception {
         System.out.println("-----------" /* Xico.getUser()*/);
         System.out.println("+--------------MOVIMENTOS-------------+");
         System.out.println("|                                     |");
@@ -673,7 +928,7 @@ public class Projfinalpoo {
         }
     }
     
-    public static void fazerPedidoFornecedor(){
+    public static void fazerPedidoFornecedor() throws Exception{
         System.out.println("+-------------------------------------+");
         System.out.println("                                      ");
         System.out.println("           ENCOMENDAR RECURSO         ");
@@ -820,7 +1075,7 @@ public class Projfinalpoo {
         
     }
     
-    public static void consultarPedidoCliente(){
+    public static void consultarPedidoCliente() throws Exception{
         System.out.println("+-------------------------------------+");
         System.out.println("                                      ");
         System.out.println("           PEDIDOS CLIENTE            ");
@@ -858,8 +1113,148 @@ public class Projfinalpoo {
         }
     }
     
+    public static void escrita() throws Exception
+    {
+        try
+        {
+            FileInputStream fis_p = new FileInputStream("p.dat");
+            ObjectInputStream is_p = new ObjectInputStream(fis_p);
+            arrayProduto = (ArrayList) is_p.readObject();
+            System.out.println(arrayProduto); //REMOVE
+            is_p.close();
+            
+            FileInputStream fis_r = new FileInputStream("r.dat");
+            ObjectInputStream is_r = new ObjectInputStream(fis_r);
+            arrayRecurso = (ArrayList) is_p.readObject();
+            System.out.println(arrayRecurso); //REMOVE
+            is_r.close();
+            
+            FileInputStream fis_c = new FileInputStream("c.dat");
+            ObjectInputStream is_c = new ObjectInputStream(fis_c);
+            arrayCliente = (ArrayList) is_c.readObject();
+            System.out.println(arrayCliente); //REMOVE
+            is_c.close();
+            
+            FileInputStream fis_g = new FileInputStream("g.dat");
+            ObjectInputStream is_g = new ObjectInputStream(fis_g);
+            arrayGestor = (ArrayList) is_g.readObject();
+            System.out.println(arrayGestor); //REMOVE
+            is_g.close();
+        }
+        catch(IOException | ClassNotFoundException e)
+        {
+            System.err.println(e.getMessage());
+        }
+        
+        //Estas ArrayLists só estão a ser usadas por segurança
+            //Podiam ser usadas as Public Static ArrayLists criadas no inicio do programa
+                //Mas ao usar estas temos a segurança de que o programa não comete nenhum erro, pois são duas ArrayLists diferentes
+        ArrayList<Produto> p = new ArrayList<Produto>();
+        ArrayList<Recurso> r = new ArrayList<Recurso>();
+        ArrayList<Cliente> c = new ArrayList<Cliente>();
+        ArrayList<Gestor> g = new ArrayList<Gestor>();
+                //
+            //
+        //
+        
+        for(int i = 0; i < arrayProduto.size(); i++)
+        {
+            p.add(arrayProduto.get(i));
+        }
+        
+        for(int i = 0; i < arrayRecurso.size(); i++)
+        {
+            r.add(arrayRecurso.get(i));
+        }
+        
+        for(int i = 0; i < arrayCliente.size(); i++)
+        {
+            c.add(arrayCliente.get(i));
+        }
+        
+        for(int i = 0; i < arrayGestor.size(); i++)
+        {
+            g.add(arrayGestor.get(i));
+        }
+        
+        //***código a ser feito com as cenas do Renato***
+        //
+        //Produto newP;
+        //newP = new Produto(???);
+        //p.add(newP);
+        //
+        //Recurso newR;
+        //newR = new Recurso(???);
+        //r.add(newR);
+        //
+        //Cliente newC;
+        //newC = new Cliente(???);
+        //c.add(newC);
+        //
+        //Gestor newG;
+        //newG = new Gestor(???);
+        //g.add(newG);
+        //
+        //  **AVISO: não usar este código caso venha em ArrayList diretamente**
+        //
+        //***código a ser feito com as cenas do Renato***
+        
+        try
+        {
+            File f_p = new File("p.dat");
+            FileOutputStream fos_p = new FileOutputStream(f_p);
+            ObjectOutputStream os_p = new ObjectOutputStream(fos_p);
+            os_p.writeObject(p);
+            os_p.flush();
+            os_p.close();
+            
+            File f_r = new File("r.dat");
+            FileOutputStream fos_r = new FileOutputStream(f_r);
+            ObjectOutputStream os_r = new ObjectOutputStream(fos_r);
+            os_r.writeObject(r);
+            os_r.flush();
+            os_r.close();
+            
+            File f_c = new File("c.dat");
+            FileOutputStream fos_c = new FileOutputStream(f_c);
+            ObjectOutputStream os_c = new ObjectOutputStream(fos_c);
+            os_c.writeObject(c);
+            os_c.flush();
+            os_c.close();
+            
+            File f_g = new File("g.dat");
+            FileOutputStream fos_g = new FileOutputStream(f_g);
+            ObjectOutputStream os_g = new ObjectOutputStream(fos_g);
+            os_g.writeObject(g);
+            os_g.flush();
+            os_g.close();
+        }
+        catch(IOException e)
+        {
+            System.err.println(e.getMessage());
+        }
+                
+    }
+    
+    public static String getHash(byte[] bytes, String alg)
+    {
+        String hash = "";
+        try
+        {
+            MessageDigest message = MessageDigest.getInstance(alg);
+            message.update(bytes);
+            byte[] dBytes = message.digest();
+            hash = DatatypeConverter.printHexBinary(dBytes).toLowerCase();
+        }
+        catch(Exception e)
+        {
+            System.err.println(e.getMessage());
+        }
+        return hash;
+    }
+    
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, Exception {
         
         menuPrincipal();
         

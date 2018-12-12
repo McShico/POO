@@ -1,0 +1,4 @@
+Nome: GestorPrincipal
+Password: 491585d01e1b226391b1c282e3841edabe41748ccbe6df6b58400780d1db5132
+Tipo: Gestor
+Acesso: Permitido
