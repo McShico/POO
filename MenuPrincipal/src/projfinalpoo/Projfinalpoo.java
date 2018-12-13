@@ -341,11 +341,12 @@ public class Projfinalpoo {
                 System.out.println("|                   2) Não                   |");
                 System.out.println("|                                            |");
                 System.out.print("| Opção: ");
-                int op = myinputs.Ler.umInt();
-                switch(op)
+                opcaoMenu = myinputs.Ler.umInt();
+                switch(opcaoMenu)
                 {
                     case 1:
                         escrita();
+                        menuGestor();
                         break;
                     case 2:
                         System.out.println("As alterações não foram guardadas");
@@ -995,28 +996,28 @@ public class Projfinalpoo {
         }
 
         try {
-            File f_p = new File("p.dat");
+            File f_p = new File("produto.dat");
             FileOutputStream fos_p = new FileOutputStream(f_p);
             ObjectOutputStream os_p = new ObjectOutputStream(fos_p);
             os_p.writeObject(arrayProduto);
             os_p.flush();
             os_p.close();
 
-            File f_r = new File("r.dat");
+            File f_r = new File("recurso.dat");
             FileOutputStream fos_r = new FileOutputStream(f_r);
             ObjectOutputStream os_r = new ObjectOutputStream(fos_r);
             os_r.writeObject(arrayRecurso);
             os_r.flush();
             os_r.close();
 
-            File f_c = new File("c.dat");
+            File f_c = new File("cliente.dat");
             FileOutputStream fos_c = new FileOutputStream(f_c);
             ObjectOutputStream os_c = new ObjectOutputStream(fos_c);
             os_c.writeObject(arrayCliente);
             os_c.flush();
             os_c.close();
 
-            File f_g = new File("g.dat");
+            File f_g = new File("gestor.dat");
             FileOutputStream fos_g = new FileOutputStream(f_g);
             ObjectOutputStream os_g = new ObjectOutputStream(fos_g);
             os_g.writeObject(arrayGestor);
@@ -1044,7 +1045,8 @@ public class Projfinalpoo {
     }
 
     public static void main(String[] args) throws IOException, Exception {
-
+        classeGestor = new Gestor("GestorPrincipal", "gestorprincipal", true);
+        arrayGestor.add(classeGestor);
         menuPrincipal();
 
     }

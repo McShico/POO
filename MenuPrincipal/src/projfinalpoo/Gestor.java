@@ -9,6 +9,11 @@ public class Gestor extends Utilizador{
         acesso = false;
     }
     
+    public Gestor(String nomeUtilizador, String password, boolean acesso) {
+        super(nomeUtilizador, password);
+        this.acesso = acesso;
+    }
+    
     public boolean getAcesso() {
         return acesso;
     }
