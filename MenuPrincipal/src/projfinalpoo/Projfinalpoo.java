@@ -1026,10 +1026,6 @@ public class Projfinalpoo {
     public static void main(String[] args) throws IOException, Exception {
         leitura();
         classeGestor = new Gestor("GestorPrincipal", "gestorprincipal", true);
-        //Produto CaralhinhoDoRenato = new Produto("CaralinhoDoRenato", 3.00, {"Caralho", "Do", "Renato"}, 2.50);
-            //Compõe isso q na tá a dar Renato
-            //dps testa e diz alguma cena seu conas
-            //P.S.: adoro-te muito <3
         arrayGestor.add(classeGestor);
         menuPrincipal();
 
