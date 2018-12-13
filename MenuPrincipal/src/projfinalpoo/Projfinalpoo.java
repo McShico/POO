@@ -336,7 +336,26 @@ public class Projfinalpoo {
                 consultarPedidoCarregamento();
                 break;
             case 6:
-                //função para guardar XICO
+                System.out.println("| Deseja guardar todas as alterações feitas? |");
+                System.out.println("|                   1) Sim                   |");
+                System.out.println("|                   2) Não                   |");
+                System.out.println("|                                            |");
+                System.out.print("| Opção: ");
+                int op = myinputs.Ler.umInt();
+                switch(op)
+                {
+                    case 1:
+                        escrita();
+                        break;
+                    case 2:
+                        System.out.println("As alterações não foram guardadas");
+                        menuGestor();
+                        break;
+                    default:
+                        System.err.println("OPÇÃO ERRADA");
+                        menuGestor();
+                        break;
+                }
                 break;
             case 0:
                 menuPrincipal();
@@ -1006,6 +1025,8 @@ public class Projfinalpoo {
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
+        
+        System.out.println("Alterações guardadas com sucesso");
 
     }
 
