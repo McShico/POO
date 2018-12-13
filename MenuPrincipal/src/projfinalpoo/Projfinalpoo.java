@@ -213,6 +213,7 @@ public class Projfinalpoo {
             case 1:
                 if (arrayProduto.size() == 0) {
                     System.out.println("Ainda não existem produtos.");
+                    menuCliente();
                 } else {
                     menuEncomendarProdutos();
                 }
@@ -426,14 +427,13 @@ public class Projfinalpoo {
         System.out.println("|       O QUE PRETENDE EDITAR?        |");
         System.out.println("|                                     |");
         System.out.println("|   1. NOME                           |");
-        System.out.println("|   2. QUANIDADE DE ENCOMENDAS        |");
-        System.out.println("|   3. QUANIDADE DE ENCOMENDAS TOTAL  |");
+        System.out.println("|   2. QUANTIDADE DE ENCOMENDAS        |");
+        System.out.println("|   3. QUANTIDADE DE ENCOMENDAS TOTAL  |");
         System.out.println("|   4. RECURSOS NECESSARIOS PARA A    |");
         System.out.println("|             SUA PRODUÇÃO            |");
         System.out.println("|   0. VOLTAR                         |");
         System.out.println("|                                     |");
-        System.out.println("|    QUANIDADE TOTAL DE ENCOMENDAS    |");
-        System.out.println("|            QUE PRETENDE?            |");
+        System.out.print("|  Opção: ");
         opcaoMenu = myinputs.Ler.umInt();
 
         switch (opcaoMenu) {
