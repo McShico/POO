@@ -11,7 +11,8 @@ public class Produto extends ProdutoERecurso{
         this.stringArray = stringArray;
         this.preco = preco;
     }
-
+    
+    
     public double getQuantidadeEncomendada() {
         return quantidadeEncomendada;
     }

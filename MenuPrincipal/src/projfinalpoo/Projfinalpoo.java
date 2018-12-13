@@ -920,83 +920,83 @@ public class Projfinalpoo {
 // ********************** Mudar Acesso a um (ou vários) Gestor(es) ********************** //
 
     public static void escrita() throws Exception {
-        try {
+        //Estas ArrayLists só estão a ser usadas por segurança
+            //Podiam ser usadas as Public Static ArrayLists criadas no inicio do programa
+                //Mas ao usar estas temos a segurança de que o programa não comete nenhum erro, pois são duas ArrayLists diferentes
+                    ArrayList<Produto> pr = new ArrayList<Produto>();
+                    ArrayList<Recurso> re = new ArrayList<Recurso>();
+                    ArrayList<Cliente> cl = new ArrayList<Cliente>();
+                    ArrayList<Gestor> ge = new ArrayList<Gestor>();
+                //
+            //
+        //
+        
+        try {                       
             FileInputStream fis_p = new FileInputStream("produto.dat");
             ObjectInputStream is_p = new ObjectInputStream(fis_p);
-            arrayProduto = (ArrayList) is_p.readObject();
+            pr = (ArrayList) is_p.readObject();
             is_p.close();
 
             FileInputStream fis_r = new FileInputStream("recurso.dat");
             ObjectInputStream is_r = new ObjectInputStream(fis_r);
-            arrayRecurso = (ArrayList) is_p.readObject();
+            re = (ArrayList) is_p.readObject();
             is_r.close();
 
             FileInputStream fis_c = new FileInputStream("cliente.dat");
             ObjectInputStream is_c = new ObjectInputStream(fis_c);
-            arrayCliente = (ArrayList) is_c.readObject();
+            cl = (ArrayList) is_c.readObject();
             is_c.close();
 
             FileInputStream fis_g = new FileInputStream("gestor.dat");
             ObjectInputStream is_g = new ObjectInputStream(fis_g);
-            arrayGestor = (ArrayList) is_g.readObject();
+            ge = (ArrayList) is_g.readObject();
             is_g.close();
         } catch (IOException | ClassNotFoundException e) {
             System.err.println(e.getMessage());
         }
 
-        //Estas ArrayLists só estão a ser usadas por segurança
-        //Podiam ser usadas as Public Static ArrayLists criadas no inicio do programa
-        //Mas ao usar estas temos a segurança de que o programa não comete nenhum erro, pois são duas ArrayLists diferentes
-        ArrayList<Produto> p = new ArrayList<Produto>();
-        ArrayList<Recurso> r = new ArrayList<Recurso>();
-        ArrayList<Cliente> c = new ArrayList<Cliente>();
-        ArrayList<Gestor> g = new ArrayList<Gestor>();
-        //
-        //
-        //
-
-        for (int i = 0; i < arrayProduto.size(); i++) {
-            p.add(arrayProduto.get(i));
+        for (int i = 0; i < pr.size(); i++) {
+            arrayProduto.add(pr.get(i));
         }
 
-        for (int i = 0; i < arrayRecurso.size(); i++) {
-            r.add(arrayRecurso.get(i));
+        for (int i = 0; i < re.size(); i++) {
+            arrayRecurso.add(re.get(i));
         }
 
-        for (int i = 0; i < arrayCliente.size(); i++) {
-            c.add(arrayCliente.get(i));
+        for (int i = 0; i < cl.size(); i++) {
+            arrayCliente.add(cl.get(i));
         }
 
-        for (int i = 0; i < arrayGestor.size(); i++) {
-            g.add(arrayGestor.get(i));
+        for (int i = 0; i < ge.size(); i++) {
+            arrayGestor.add(ge.get(i));
         }
 
         try {
             File f_p = new File("p.dat");
             FileOutputStream fos_p = new FileOutputStream(f_p);
             ObjectOutputStream os_p = new ObjectOutputStream(fos_p);
-            os_p.writeObject(p);
+            os_p.writeObject(arrayProduto);
             os_p.flush();
             os_p.close();
 
             File f_r = new File("r.dat");
             FileOutputStream fos_r = new FileOutputStream(f_r);
             ObjectOutputStream os_r = new ObjectOutputStream(fos_r);
-            os_r.writeObject(r);
+            os_r.writeObject(arrayRecurso);
             os_r.flush();
             os_r.close();
 
             File f_c = new File("c.dat");
             FileOutputStream fos_c = new FileOutputStream(f_c);
             ObjectOutputStream os_c = new ObjectOutputStream(fos_c);
-            os_c.writeObject(c);
+            os_c.writeObject(arrayCliente);
             os_c.flush();
             os_c.close();
 
             File f_g = new File("g.dat");
             FileOutputStream fos_g = new FileOutputStream(f_g);
             ObjectOutputStream os_g = new ObjectOutputStream(fos_g);
-            os_g.writeObject(g);
+            os_g.writeObject(arrayGestor);
             os_g.flush();
             os_g.close();
         } catch (IOException e) {
