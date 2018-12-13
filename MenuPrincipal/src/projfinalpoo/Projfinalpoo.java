@@ -309,7 +309,7 @@ public class Projfinalpoo {
         System.out.println("|     2. CONSULTAR MOVIMENTOS          |");
         System.out.println("|     3. COMPRAR RECURSOS AO FORNECEDOR|");
         System.out.println("|     4. CONSULTAR PEDIDOS DE CLIENTES |");
-        System.out.println("|     5. MUDAR ACEESO A UM GESTOR      |");
+        System.out.println("|     5. CONSULTAR PEDIDOS DE CARREGAMENTO DE CONTA      |");
         System.out.println("|     6. GUARDAR NA BASE DE DADOS      |");
         System.out.println("|     0. TERMINAR SESSÃO               |");
         System.out.println("|                                      |");
@@ -333,7 +333,7 @@ public class Projfinalpoo {
                 consultarPedidoCliente();
                 break;
             case 5:
-                mudarAcesso();
+                consultarPedidoCarregamento();
                 break;
             case 6:
                 //função para guardar XICO
@@ -869,6 +869,10 @@ public class Projfinalpoo {
                 menuGestor();
                 break;
         }
+    }
+    
+    public static void consultarPedidoCarregamento() {
+        
     }
 
     // ********************** Mudar Acesso a um (ou vários) Gestor(es) ********************** //
