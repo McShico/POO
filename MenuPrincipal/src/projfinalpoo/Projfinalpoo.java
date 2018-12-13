@@ -310,6 +310,7 @@ public class Projfinalpoo {
         System.out.println("|     3. COMPRAR RECURSOS AO FORNECEDOR|");
         System.out.println("|     4. CONSULTAR PEDIDOS DE CLIENTES |");
         System.out.println("|     5. MUDAR ACEESO A UM GESTOR      |");
+        System.out.println("|     6. GUARDAR NA BASE DE DADOS      |");
         System.out.println("|     0. TERMINAR SESSÃO               |");
         System.out.println("|                                      |");
         System.out.println("+--------------------------------------+");
@@ -333,6 +334,9 @@ public class Projfinalpoo {
                 break;
             case 5:
                 mudarAcesso();
+                break;
+            case 6:
+                //função para guardar XICO
                 break;
             case 0:
                 menuPrincipal();
@@ -917,28 +921,24 @@ public class Projfinalpoo {
 
     public static void escrita() throws Exception {
         try {
-            FileInputStream fis_p = new FileInputStream("p.dat");
+            FileInputStream fis_p = new FileInputStream("produto.dat");
             ObjectInputStream is_p = new ObjectInputStream(fis_p);
             arrayProduto = (ArrayList) is_p.readObject();
-            System.out.println(arrayProduto); //REMOVE
             is_p.close();
 
-            FileInputStream fis_r = new FileInputStream("r.dat");
+            FileInputStream fis_r = new FileInputStream("recurso.dat");
             ObjectInputStream is_r = new ObjectInputStream(fis_r);
             arrayRecurso = (ArrayList) is_p.readObject();
-            System.out.println(arrayRecurso); //REMOVE
             is_r.close();
 
-            FileInputStream fis_c = new FileInputStream("c.dat");
+            FileInputStream fis_c = new FileInputStream("cliente.dat");
             ObjectInputStream is_c = new ObjectInputStream(fis_c);
             arrayCliente = (ArrayList) is_c.readObject();
-            System.out.println(arrayCliente); //REMOVE
             is_c.close();
 
-            FileInputStream fis_g = new FileInputStream("g.dat");
+            FileInputStream fis_g = new FileInputStream("gestor.dat");
             ObjectInputStream is_g = new ObjectInputStream(fis_g);
             arrayGestor = (ArrayList) is_g.readObject();
-            System.out.println(arrayGestor); //REMOVE
             is_g.close();
         } catch (IOException | ClassNotFoundException e) {
             System.err.println(e.getMessage());
@@ -971,27 +971,6 @@ public class Projfinalpoo {
             g.add(arrayGestor.get(i));
         }
 
-        //***código a ser feito com as cenas do Renato***
-        //
-        //Produto newP;
-        //newP = new Produto(???);
-        //p.add(newP);
-        //
-        //Recurso newR;
-        //newR = new Recurso(???);
-        //r.add(newR);
-        //
-        //Cliente newC;
-        //newC = new Cliente(???);
-        //c.add(newC);
-        //
-        //Gestor newG;
-        //newG = new Gestor(???);
-        //g.add(newG);
-        //
-        //  **AVISO: não usar este código caso venha em ArrayList diretamente**
-        //
-        //***código a ser feito com as cenas do Renato***
         try {
             File f_p = new File("p.dat");
             FileOutputStream fos_p = new FileOutputStream(f_p);
