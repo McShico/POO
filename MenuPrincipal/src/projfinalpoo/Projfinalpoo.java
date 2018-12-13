@@ -941,60 +941,39 @@ public class Projfinalpoo {
         int op = myinputs.Ler.umInt();
         //    
     }
-// ********************** Mudar Acesso a um (ou vários) Gestor(es) ********************** //
-
-    public static void escrita() throws Exception {
-        //Estas ArrayLists só estão a ser usadas por segurança
-            //Podiam ser usadas as Public Static ArrayLists criadas no inicio do programa
-                //Mas ao usar estas temos a segurança de que o programa não comete nenhum erro, pois são duas ArrayLists diferentes
-                    ArrayList<Produto> pr = new ArrayList<Produto>();
-                    ArrayList<Recurso> re = new ArrayList<Recurso>();
-                    ArrayList<Cliente> cl = new ArrayList<Cliente>();
-                    ArrayList<Gestor> ge = new ArrayList<Gestor>();
-                //
-            //
-        //
-        
+  
+// ********************** Transferir Dados ********************** //
+    public static void leitura() throws Exception
+    {
         try {                       
             FileInputStream fis_p = new FileInputStream("produto.dat");
             ObjectInputStream is_p = new ObjectInputStream(fis_p);
-            pr = (ArrayList) is_p.readObject();
+            arrayProduto = (ArrayList) is_p.readObject();
             is_p.close();
 
             FileInputStream fis_r = new FileInputStream("recurso.dat");
             ObjectInputStream is_r = new ObjectInputStream(fis_r);
-            re = (ArrayList) is_p.readObject();
+            arrayRecurso = (ArrayList) is_p.readObject();
             is_r.close();
 
             FileInputStream fis_c = new FileInputStream("cliente.dat");
             ObjectInputStream is_c = new ObjectInputStream(fis_c);
-            cl = (ArrayList) is_c.readObject();
+            arrayCliente = (ArrayList) is_c.readObject();
             is_c.close();
 
             FileInputStream fis_g = new FileInputStream("gestor.dat");
             ObjectInputStream is_g = new ObjectInputStream(fis_g);
-            ge = (ArrayList) is_g.readObject();
+            arrayGestor = (ArrayList) is_g.readObject();
             is_g.close();
         } catch (IOException | ClassNotFoundException e) {
             System.err.println(e.getMessage());
         }
+    }
+// ********************** Transferir Dados ********************** //    
 
-        for (int i = 0; i < pr.size(); i++) {
-            arrayProduto.add(pr.get(i));
-        }
+// ********************** Mudar Acesso a um (ou vários) Gestor(es) ********************** //
 
-        for (int i = 0; i < re.size(); i++) {
-            arrayRecurso.add(re.get(i));
-        }
-
-        for (int i = 0; i < cl.size(); i++) {
-            arrayCliente.add(cl.get(i));
-        }
-
-        for (int i = 0; i < ge.size(); i++) {
-            arrayGestor.add(ge.get(i));
-        }
-
+    public static void escrita() throws Exception {
         try {
             File f_p = new File("produto.dat");
             FileOutputStream fos_p = new FileOutputStream(f_p);
@@ -1045,6 +1024,7 @@ public class Projfinalpoo {
     }
 
     public static void main(String[] args) throws IOException, Exception {
+        leitura();
         classeGestor = new Gestor("GestorPrincipal", "gestorprincipal", true);
         arrayGestor.add(classeGestor);
         menuPrincipal();
