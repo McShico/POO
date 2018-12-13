@@ -2,22 +2,13 @@ package projfinalpoo;
 
 
 public class Conta {
-    private int id;
+    
     private String nomeUtilizadorConta;
     private int saldo;
 
-    public Conta(int id, String nomeDoUtilizador) {
-        this.id = id;
+    public Conta(String nomeDoUtilizador) {
         this.nomeUtilizadorConta = nomeDoUtilizador;
         this.saldo = 0;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getNomeDoUtilizador() {

@@ -1,14 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package projfinalpoo;
 
-/**
- *
- * @author Renato Vieira
- */
-public class Gestor {
+public class Gestor extends Utilizador{
     
+    public boolean acesso;
+    
+    public Gestor(String nomeUtilizador, String password) {
+        super(nomeUtilizador, password);
+        acesso = false;
+    }
+    
+    public boolean getAcesso() {
+        return acesso;
+    }
+
+    public void setAcesso(boolean acesso) {
+        this.acesso = acesso;
+    }
 }

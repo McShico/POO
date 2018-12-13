@@ -1,26 +1,30 @@
 package projfinalpoo;
 
+import java.util.ArrayList;
+
 public class Cliente extends Utilizador {
     
-    Conta conta;
+    public Conta conta;
+    public ArrayList<ArrayList<String>> arraylist = new ArrayList<ArrayList<String>>();
     
-    public Cliente(String nome, String morada, String email, String password) {
-        super.setNome(nome);
-        super.setMorada(morada);
-        super.setEmail(email);
-        super.setPassword(password);
-        conta = new Conta(super.getId(), super.getNome());
+    public Cliente(String nomeUtilizador, String password) {
+        super(nomeUtilizador, password);
+        conta = new Conta(nomeUtilizador);
     }
     
-    public void comprar(int decValor) {
-        conta.decSaldo(decValor);
+    public ArrayList<ArrayList<String>> getAllaylist() {
+        return arraylist;
+    }
+
+    public void setAllaylist(ArrayList<ArrayList<String>> allaylist) {
+        this.arraylist = allaylist;
     }
     
-    public void carregar(int incValor) {
-        conta.incSaldo(incValor);
-    }
-    
-    public String visualizar() {
-        return "ID de utilizador: " + super.getId() + ", Nome de utilizador: " + super.getNome() + ", Morada: " + super.getMorada() + ", Email: " + super.getEmail() + ", ID de conta: " + conta.getId() + ", Saldo: " + conta.getSaldo();
+    public void encomendar(String produto, String quantidade) {
+        ArrayList<ArrayList<String>> arraylist = new ArrayList<ArrayList<String>>();
+        ArrayList interior = new ArrayList<String>();
+        interior.add(produto);
+        interior.add(quantidade);
+        arraylist.add(interior);
     }
 }
