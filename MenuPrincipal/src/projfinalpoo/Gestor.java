@@ -12,6 +12,7 @@ public class Gestor extends Utilizador{
     public Gestor(String nomeUtilizador, String password, boolean acesso) {
         super(nomeUtilizador, password);
         this.acesso = acesso;
+        Conta a = new Conta(nomeUtilizador);
     }
     
     public boolean getAcesso() {

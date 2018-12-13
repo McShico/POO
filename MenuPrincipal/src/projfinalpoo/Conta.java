@@ -4,11 +4,16 @@ package projfinalpoo;
 public class Conta {
     
     private String nomeUtilizadorConta;
-    private int saldo;
+    private double saldo;
 
     public Conta(String nomeDoUtilizador) {
         this.nomeUtilizadorConta = nomeDoUtilizador;
         this.saldo = 0;
+    }
+    
+    public Conta(String nomeDoUtilizador, double saldo) {
+        this.nomeUtilizadorConta = nomeDoUtilizador;
+        this.saldo = 1000;
     }
 
     public String getNomeDoUtilizador() {
@@ -19,19 +24,19 @@ public class Conta {
         this.nomeUtilizadorConta = nomeDoUtilizador;
     }
 
-    public int getSaldo() {
+    public double getSaldo() {
         return saldo;
     }
 
-    public void setSaldo(int saldo) {
+    public void setSaldo(double saldo) {
         this.saldo = saldo;
     }
     
-    public void incSaldo(int saldo) {
+    public void incSaldo(double saldo) {
         this.saldo += saldo;
     }
     
-    public void decSaldo(int saldo) {
+    public void decSaldo(double saldo) {
         this.saldo += saldo;
     }
 }
