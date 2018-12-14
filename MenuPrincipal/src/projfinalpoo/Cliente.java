@@ -5,26 +5,39 @@ import java.util.ArrayList;
 public class Cliente extends Utilizador {
     
     public Conta conta;
-    public ArrayList<ArrayList<String>> arraylist = new ArrayList<ArrayList<String>>();
+    public String[] quantidadeDeCadaProduto = new String[2];
+    public ArrayList<String[]> arraylist = new ArrayList<String[]>();
+    public double saldoPedido;
     
     public Cliente(String nomeUtilizador, String password) {
         super(nomeUtilizador, password);
         conta = new Conta(nomeUtilizador);
+        this.saldoPedido = 0;
     }
     
-    public ArrayList<ArrayList<String>> getAllaylist() {
+    public ArrayList<String[]> getAllaylist() {
         return arraylist;
     }
 
-    public void setAllaylist(ArrayList<ArrayList<String>> allaylist) {
+    public void setAllaylist(ArrayList<String[]> allaylist) {
         this.arraylist = allaylist;
     }
     
     public void encomendar(String produto, String quantidade) {
-        ArrayList<ArrayList<String>> arraylist = new ArrayList<ArrayList<String>>();
-        ArrayList interior = new ArrayList<String>();
-        interior.add(produto);
-        interior.add(quantidade);
-        arraylist.add(interior);
+        quantidadeDeCadaProduto[0] = produto;
+        quantidadeDeCadaProduto[1] = quantidade;
+        arraylist.add(quantidadeDeCadaProduto);
+    }
+
+    public double getSaldoPedido() {
+        return saldoPedido;
+    }
+
+    public void setSaldoPedido(double saldoPedido) {
+        this.saldoPedido = saldoPedido;
+    }
+    
+    public void incSaldoPedido(double saldoPedido) {
+        this.saldoPedido += saldoPedido;
     }
 }
