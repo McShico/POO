@@ -30,7 +30,7 @@ public class Ler{
                 return Integer.valueOf(umaString().trim()).intValue();
             }
             catch (Exception e){
-                System.out.println("Não é um inteiro válido!");
+                System.out.println("|       Não é um inteiro válido!      |");
             }
         }
     }
@@ -41,7 +41,7 @@ public class Ler{
                 return Double.valueOf(umaString().trim()).intValue();
             }
             catch (Exception e){
-                System.out.println("Não é um inteiro válido!");
+                System.out.println("|       Não é um decimal válido!      |");
             }
         }
     }

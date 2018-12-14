@@ -57,11 +57,12 @@ public class Projfinalpoo {
                 menuRegistar();
                 break;
             default:
+                System.out.println("           Opção inválida!          ");
                 menuPrincipal();
                 break;
             case 0:
                 System.out.println("");
-                System.out.println("**** Até uma próxima ****");
+                System.out.println("********** Até uma próxima *********");
                 break;
         }
     }
@@ -73,19 +74,19 @@ public class Projfinalpoo {
         System.out.println("|                                  |");
         System.out.println("|          1 - Cliente             |");
         System.out.println("|          2 - Gestor              |");
-        System.out.print("|    Opção: ");
+        System.out.print("|  Opção: ");
         
         opcaoMenu = myinputs.Ler.umInt();
         
         System.out.println("|                                  |");
         System.out.println("|        INTRODUZA USERNAME        |");
-        System.out.print("|            ");
+        System.out.print("|           ");
         
         String username = myinputs.Ler.umaString();
 
         System.out.println("|                                  |");
         System.out.println("|         INTRODUZA PASSWORD       |");
-        System.out.print("|            ");
+        System.out.print("|           ");
         
         String password = myinputs.Ler.umaString();
         
@@ -98,32 +99,33 @@ public class Projfinalpoo {
                         indiceUtilizadorAtualArraylist = i;
                         menuCliente();
                     } else {
-                        System.err.println("Utilizador ou password errado(s).");
+                        System.err.println("  Utilizador ou password errado(s)  ");
                     }
                 }
                 if (arrayCliente.size() == 0) {
-                    System.err.println("Ainda não existem contas de cliente.");
+                    System.err.println(" Ainda não existem contas de cliente");
                 }
                 break;
             case 2:
-                for (int i = 0; i < arrayGestor.size(); i++) {
-                    if (arrayGestor.get(i).getNomeUtilizador().equals(username) && arrayGestor.get(i).getPassword().equals(password) && arrayGestor.get(i).getAcesso()) {
-                        indiceUtilizadorAtualArraylist = i;
-                        menuGestor();
-                    } else {
-                        System.err.println("Utilizador ou password errado(s) ou ainda não tem acesso.");
+                if (arrayCliente.size() == 0) {
+                    System.err.println(" Ainda não existem contas de gestor");
+                } else {
+                    for (int i = 0; i < arrayGestor.size(); i++) {
+                        if (arrayGestor.get(i).getNomeUtilizador().equals(username) && arrayGestor.get(i).getPassword().equals(password) && arrayGestor.get(i).getAcesso()) {
+                            indiceUtilizadorAtualArraylist = i;
+                            menuGestor();
+                        } else {
+                            System.err.println("  Utilizador ou password errado(s)  ");
+                            System.err.println("      ou ainda não tem acesso.      ");
+                        }
                     }
                 }
-                if (arrayCliente.size() == 0) {
-                    System.err.println("Ainda não existem contas de gestor.");
-                }
+                
                 break;
             default:
-                System.err.println("Opção inválida.");
-                menuPrincipal();
-                
+                System.err.println("           Opção inválida!          ");
+                break;
         }
-        
         menuPrincipal();
     }
 
@@ -143,25 +145,25 @@ public class Projfinalpoo {
         
         System.out.println("|                                  |");
         System.out.println("|        INTRODUZA USERNAME        |");
-        System.out.print("|         ");
+        System.out.print("|          ");
         String novoUsername = myinputs.Ler.umaString();
 
         System.out.println("|                                  |");
         System.out.println("|        INTRODUZA PASSWORD        |");
-        System.out.print("|         ");
+        System.out.print("|          ");
         String novaPassword = myinputs.Ler.umaString();
 
         switch (opcaoMenu) {
             case 1:
                 for (int i = 0; i < arrayCliente.size(); i++) {
                     if (arrayCliente.get(i).getNomeUtilizador().equals(novoUsername)) {
-                        System.err.println("Nome de utilizador indisponivel.");
+                        System.err.println("  Nome de utilizador indisponivel!");
                         menuPrincipal();
                     }
                 }
                 for (int i = 0; i < arrayGestor.size(); i++) {
                     if (arrayGestor.get(i).getNomeUtilizador().equals(novoUsername)) {
-                        System.err.println("Nome de urilizador indisponivel.");
+                        System.err.println("  Nome de utilizador indisponivel!");
                         menuPrincipal();
                     }
                 }
@@ -171,13 +173,13 @@ public class Projfinalpoo {
             case 2:
                 for (int i = 0; i < arrayCliente.size(); i++) {
                     if (arrayCliente.get(i).getNomeUtilizador().equals(novoUsername)) {
-                        System.err.println("Nome de utilizador indisponivel.");
+                        System.err.println("  Nome de utilizador indisponivel!");
                         menuPrincipal();
                     }
                 }
                 for (int i = 0; i < arrayGestor.size(); i++) {
                     if (arrayGestor.get(i).getNomeUtilizador().equals(novoUsername)) {
-                        System.err.println("Nome de urilizador indisponivel.");
+                        System.err.println("  Nome de utilizador indisponivel!");
                         menuPrincipal();
                     }
                 }
@@ -198,8 +200,8 @@ public class Projfinalpoo {
         System.out.println("|     SALDO:" + arrayCliente.get(indiceUtilizadorAtualArraylist).conta.getSaldo() );
         System.out.println("|                                  |");
         System.out.println("|     1. ENCOMENDAR PRODUTOS       |");
-        System.out.println("|     2. CONSULTAR MOVIMENTOS      |");
-        System.out.println("|     3. CARREGAR CONTA            |");
+        System.out.println("|     2. CARREGAR CONTA            |");
+        System.out.println("|     3. ELIMINAR CONTA            |");
         System.out.println("|     0. TERMINAR SESSÃO           |");
         System.out.println("|                                  |");
         System.out.println("+----------------------------------+");
@@ -218,14 +220,13 @@ public class Projfinalpoo {
                 }
                 break;
             case 2:
-                menuConsultarMovimentos();
-                break;
-            case 3:
                 menuCarregarConta();
                 break;
+            case 3:
+                eliminarConta();
+                break;
             case 0:
-                //menuPrincipal(); NAO ELIMINAR. VERSAO FINAL!!!
-                menuGestor(); // ELIMINAR NO FIM DO PROJ
+                menuPrincipal();
                 break;
         }
     }
@@ -268,38 +269,8 @@ public class Projfinalpoo {
                 break;
         }
     }
-
-    public static void menuConsultarMovimentos() throws Exception {
-        System.out.println("+--------------MOVIMENTOS-------------+");
-        System.out.println("|                                     |");
-        System.out.println("|        SALDO: "  + arrayCliente.get(indiceUtilizadorAtualArraylist).conta.getSaldo() );
-        System.out.println("|                                     |");
-        System.out.println("|        TOTAL DE DESPESAS:           |" /* + GETTOTALDESPESAS */);
-        System.out.println("|         >BOLO:                      |" /* + GETTOTALDESPESASSBOLO */);
-        System.out.println("|         >IOGURTE:                   |" /* + GETTOTALDESPESASIOGURTE */);
-        System.out.println("|         >SUMO:                      |" /* + GETTOTALDESPESASSUMOS */);
-        System.out.println("|                                     |");
-        System.out.println("|        TOTAL DE UNIDADES COMPRADAS: |" /* GETTOTALUNIDADESCOMPRADAS */);
-        System.out.println("|         >BOLO:                      |" /* + GETTOTALUNIDADESBOLO */);
-        System.out.println("|         >IOGURTE:                   |" /* + GETTOTALDESPESASIOGURTES */);
-        System.out.println("|         >SUMO:                      |" /* + GETTOTALDESPESASSUMOS */);
-        System.out.println("|                                     |");
-        System.out.println("|        0. RETROCEDER                |");
-        System.out.println("|                                     |");
-        System.out.println("+-------------------------------------+");
-        System.out.println();
-        System.out.print("Opção: ");
-
-        String retroceder = myinputs.Ler.umaString();
-
-        switch (retroceder) {
-            default:
-                menuCliente();
-                break;
-        }
-    }
     
-    public static void menuCarregarConta() {
+    public static void menuCarregarConta() throws Exception {
         System.out.println("+--------------Cliente-------------+");
         System.out.println("+----------Carregar conta----------+");
         System.out.println("|                                  |");
@@ -310,10 +281,39 @@ public class Projfinalpoo {
         
         arrayCliente.get(indiceUtilizadorAtualArraylist).incSaldoPedido(quantia);
         
-        System.out.println("|                                  |");
+        System.out.println("|      Carregamento com exito.     |");
         System.out.println("|   Só tem de esperar até que um   |");
-        System.out.println("|     aceite o seu carregamento.   |");
+        System.out.println("|        o seu carregamento        |");
+        System.out.println("|          seja validado.          |");
     }
+    
+    public static void eliminarConta() throws Exception {
+        
+        
+        System.out.println("+----------ELIMINAR conta----------+");
+        System.out.println("|                                  |");
+        System.out.println("|    TEM A CERTEZA QUE PRETENDE    |");
+        System.out.println("|       APAGAR A SUA CONTA?        |");
+        System.out.println("|                                  |");
+        System.out.println("|       1. SIM                     |");
+        System.out.println("|       2. NAO                     |");
+        System.out.println("|                                  |");
+        System.out.println("+----------------------------------+");
+        System.out.println("Opção: ");
+        
+        opcaoMenu = myinputs.Ler.umInt();
+        
+        if (opcaoMenu == 1) {
+            arrayCliente.remove(indiceUtilizadorAtualArraylist);
+            menuPrincipal();
+        } else if (opcaoMenu == 2) {
+            menuCliente();
+        } else {
+            System.out.println("           Opção inválida!          ");
+            eliminarConta();
+        }
+    }
+    
 
     // ************************ Gestor *********************************
     public static void menuGestor() throws Exception {
