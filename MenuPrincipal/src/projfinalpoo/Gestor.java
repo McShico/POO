@@ -22,4 +22,8 @@ public class Gestor extends Utilizador{
     public void setAcesso(boolean acesso) {
         this.acesso = acesso;
     }
+
+    void set(int i, boolean b) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

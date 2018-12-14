@@ -311,6 +311,7 @@ public class Projfinalpoo {
         System.out.println("|     4. CONSULTAR PEDIDOS DE CLIENTES |");
         System.out.println("|     5. CONSULTAR PEDIDOS DE CARREGAMENTO DE CONTA      |");
         System.out.println("|     6. GUARDAR NA BASE DE DADOS      |");
+        System.out.println("|     7. ALTERAR ACESSO A UM OU VARIOS GESTOR(ES)        |");
         System.out.println("|     0. TERMINAR SESSÃO               |");
         System.out.println("|                                      |");
         System.out.println("+--------------------------------------+");
@@ -358,6 +359,10 @@ public class Projfinalpoo {
                         break;
                 }
                 break;
+            case 7: 
+                mudarAcesso();
+                break;
+                
             case 0:
                 menuPrincipal();
                 break;
@@ -843,40 +848,31 @@ public class Projfinalpoo {
         System.out.println("|                                          |");
         System.out.print("| Opção: ");
         int op = myinputs.Ler.umInt();
-        //    
-    }
-  
-// ********************** Transferir Dados ********************** //
-    public static void leitura() throws Exception
-    {
-        try {                       
-            FileInputStream fis_p = new FileInputStream("produto.dat");
-            ObjectInputStream is_p = new ObjectInputStream(fis_p);
-            arrayProduto = (ArrayList) is_p.readObject();
-            is_p.close();
-
-            FileInputStream fis_r = new FileInputStream("recurso.dat");
-            ObjectInputStream is_r = new ObjectInputStream(fis_r);
-            arrayRecurso = (ArrayList) is_p.readObject();
-            is_r.close();
-
-            FileInputStream fis_c = new FileInputStream("cliente.dat");
-            ObjectInputStream is_c = new ObjectInputStream(fis_c);
-            arrayCliente = (ArrayList) is_c.readObject();
-            is_c.close();
-
-            FileInputStream fis_g = new FileInputStream("gestor.dat");
+        //   
+       ArrayList<Gestor> ge = new ArrayList<Gestor>();
+       
+       try {
+           // Lê as autorizações de cada utilizador
+           FileInputStream fis_g = new FileInputStream("gestor.dat");
             ObjectInputStream is_g = new ObjectInputStream(fis_g);
-            arrayGestor = (ArrayList) is_g.readObject();
-            is_g.close();
-        } catch (IOException | ClassNotFoundException e) {
+            ge = (ArrayList) is_g.readObject();
+            is_g.close();       
+        }
+       catch (IOException e) {
             System.err.println(e.getMessage());
         }
+       for (int i = 0; i<= ge.size(); i++)  {   // Conta cada linha e permite ou nega acesso às contas que fizeram pedido para Gestor
+           arrayGestor.add(ge.get(i));
+               if (i!=0)   {
+                   arrayGestor.get(i).set(i, false);
+               }
+           else {
+               arrayGestor.get(i).set(i, true);
+            }
+       }
     }
-// ********************** Transferir Dados ********************** //    
-
-// ********************** Mudar Acesso a um (ou vários) Gestor(es) ********************** //
-
+    // ********************** Mudar Acesso a um (ou vários) Gestor(es) ********************** //
+    
     public static void escrita() throws Exception {
         try {
             File f_p = new File("produto.dat");
@@ -913,7 +909,34 @@ public class Projfinalpoo {
         System.out.println("Alterações guardadas com sucesso");
 
     }
+    // ********************** Transferir Dados ********************** //
+    public static void leitura() throws Exception
+    {
+        try {                       
+            FileInputStream fis_p = new FileInputStream("produto.dat");
+            ObjectInputStream is_p = new ObjectInputStream(fis_p);
+            arrayProduto = (ArrayList) is_p.readObject();
+            is_p.close();
 
+            FileInputStream fis_r = new FileInputStream("recurso.dat");
+            ObjectInputStream is_r = new ObjectInputStream(fis_r);
+            arrayRecurso = (ArrayList) is_p.readObject();
+            is_r.close();
+
+            FileInputStream fis_c = new FileInputStream("cliente.dat");
+            ObjectInputStream is_c = new ObjectInputStream(fis_c);
+            arrayCliente = (ArrayList) is_c.readObject();
+            is_c.close();
+
+            FileInputStream fis_g = new FileInputStream("gestor.dat");
+            ObjectInputStream is_g = new ObjectInputStream(fis_g);
+            arrayGestor = (ArrayList) is_g.readObject();
+            is_g.close();
+        } catch (IOException | ClassNotFoundException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+// ********************** Transferir Dados ********************** //  
     public static String getHash(byte[] bytes, String alg) {
         String hash = "";
         try {
