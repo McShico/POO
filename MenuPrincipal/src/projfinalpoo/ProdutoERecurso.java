@@ -31,6 +31,6 @@ public class ProdutoERecurso {
     }
     
     public void decQuantidadeStock(double quantidadeStockDec) {
-        this.quantidadeStock += quantidadeStockDec;
+        this.quantidadeStock -= quantidadeStockDec;
     }
 }

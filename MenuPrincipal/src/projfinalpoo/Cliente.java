@@ -29,7 +29,7 @@ public class Cliente extends Utilizador {
         arraylist.add(NomeEQuantidade);
     }
     
-    public String getPordutoEQuantidade (int posicaoNaArrayList, int ProdutoOuQuantidade) {
+    public String getProdutoEQuantidade (int posicaoNaArrayList, int ProdutoOuQuantidade) {
         String[] ProdutoOuQuantidadeString = arraylist.get(posicaoNaArrayList);
         return ProdutoOuQuantidadeString[ProdutoOuQuantidade];
     }
