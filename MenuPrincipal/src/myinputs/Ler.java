@@ -38,7 +38,7 @@ public class Ler{
     public static double umDouble(){
         while(true){
             try{
-                return Double.valueOf(umaString().trim()).intValue();
+                return Double.valueOf(umaString().trim()).doubleValue();
             }
             catch (Exception e){
                 System.out.println("|       Não é um decimal válido!      |");

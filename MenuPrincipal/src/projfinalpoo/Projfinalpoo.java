@@ -1,6 +1,5 @@
 package projfinalpoo;
 
-import myinputs.Ler.*;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.DataInputStream;
@@ -16,7 +15,6 @@ import java.io.OutputStreamWriter;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import javax.xml.bind.DatatypeConverter;
-import myinputs.Ler;
 
 public class Projfinalpoo {
 
@@ -87,27 +85,28 @@ public class Projfinalpoo {
         System.out.println("|                                  |");
         System.out.println("|         INTRODUZA PASSWORD       |");
         System.out.print("|           ");
-        
+
         String password = myinputs.Ler.umaString();
-        
+
         System.out.println("+----------------------------------+");
-        
+
         switch (opcaoMenu) {
             case 1:
-                for (int i = 0; i < arrayCliente.size(); i++) {
-                    if (arrayCliente.get(i).getNomeUtilizador().equals(username) && arrayCliente.get(i).getPassword().equals(password)) {
-                        indiceUtilizadorAtualArraylist = i;
-                        menuCliente();
-                    } else {
-                        System.err.println("  Utilizador ou password errado(s)  ");
-                    }
-                }
-                if (arrayCliente.size() == 0) {
+                if (arrayCliente.isEmpty()) {
                     System.err.println(" Ainda não existem contas de cliente");
+                } else {
+                    for (int i = 0; i < arrayCliente.size(); i++) {
+                        if (arrayCliente.get(i).getNomeUtilizador().equals(username) && arrayCliente.get(i).getPassword().equals(password)) {
+                            indiceUtilizadorAtualArraylist = i;
+                            menuCliente();
+                        } else {
+                            System.err.println("  Utilizador ou password errado(s)  ");
+                        }
+                    }
                 }
                 break;
             case 2:
-                if (arrayCliente.size() == 0) {
+                if (arrayGestor.isEmpty()) {
                     System.err.println(" Ainda não existem contas de gestor");
                 } else {
                     for (int i = 0; i < arrayGestor.size(); i++) {
@@ -158,39 +157,46 @@ public class Projfinalpoo {
                 for (int i = 0; i < arrayCliente.size(); i++) {
                     if (arrayCliente.get(i).getNomeUtilizador().equals(novoUsername)) {
                         System.err.println("  Nome de utilizador indisponivel!");
+                        System.out.println("+----------------------------------+");
                         menuPrincipal();
                     }
                 }
                 for (int i = 0; i < arrayGestor.size(); i++) {
                     if (arrayGestor.get(i).getNomeUtilizador().equals(novoUsername)) {
                         System.err.println("  Nome de utilizador indisponivel!");
+                        System.out.println("+----------------------------------+");
                         menuPrincipal();
                     }
                 }
                 classeCliente = new Cliente(novoUsername, novaPassword);
                 arrayCliente.add(classeCliente);
+                menuPrincipal();
                 break;
             case 2:
                 for (int i = 0; i < arrayCliente.size(); i++) {
                     if (arrayCliente.get(i).getNomeUtilizador().equals(novoUsername)) {
                         System.err.println("  Nome de utilizador indisponivel!");
+                        System.out.println("+----------------------------------+");
                         menuPrincipal();
                     }
                 }
                 for (int i = 0; i < arrayGestor.size(); i++) {
                     if (arrayGestor.get(i).getNomeUtilizador().equals(novoUsername)) {
                         System.err.println("  Nome de utilizador indisponivel!");
+                        System.out.println("+----------------------------------+");
                         menuPrincipal();
                     }
                 }
                 classeGestor = new Gestor(novoUsername, novaPassword);
                 arrayGestor.add(classeGestor);
+                menuPrincipal();
+                break;
+            default:
+                System.err.println("           Opção inválida!          ");
+                System.out.println("+----------------------------------+");
+                menuPrincipal();
                 break;
         }
-
-            System.out.println("+----------------------------------+");
-        menuPrincipal();
-
     }
 
     // ************************ Cliente ************************
@@ -212,7 +218,7 @@ public class Projfinalpoo {
 
         switch (opcaoMenu) {
             case 1:
-                if (arrayProduto.size() == 0) {
+                if (arrayProduto.isEmpty()) {
                     System.out.println("Ainda não existem produtos.");
                     menuCliente();
                 } else {
@@ -224,6 +230,10 @@ public class Projfinalpoo {
                 break;
             case 3:
                 eliminarConta();
+                break;
+            default:
+                System.err.println("           Opção inválida!          ");
+                menuCliente();
                 break;
             case 0:
                 menuPrincipal();
@@ -239,35 +249,38 @@ public class Projfinalpoo {
         System.out.println("|                                  |");
         
         for (int i = 0; i < arrayProduto.size(); i++) {
-            System.out.println("|  " + (i+1) + ". " + arrayProduto.get(i).getNome());
+            System.out.println("|      " + (i + 1) + ". " + arrayProduto.get(i).getNome());
         }
-        System.out.println("|      0 - RETROCEDER              |");
+        System.out.println("|      0 - VOLTAR                  |");
         System.out.println("|                                  |");
         System.out.print("|  Opção: ");
-        
+
         opcaoMenu = myinputs.Ler.umInt();
-        
-        switch (opcaoMenu) {
-            default :
-                System.out.println("|                                  |");
-                System.out.println("|      Quanto(s) quer comprar?     |");
-                System.out.println("|");
-                System.out.println("|  Quantidade: ");
-                
-                int quantidade = myinputs.Ler.umInt();
-                
-                System.out.println(indiceUtilizadorAtualArraylist);
-                
-                String nomeProduto = arrayProduto.get(opcaoMenu-1).getNome();
-                
-                String quantidadeEmString = Integer.toString(quantidade);
-                
-                arrayCliente.get(indiceUtilizadorAtualArraylist).encomendar(nomeProduto,quantidadeEmString);
-                
-            case 0:
-                menuCliente();
-                break;
+
+        if ((opcaoMenu - 1) > 0 || (opcaoMenu - 1) < arrayProduto.size() + 1) {
+            System.out.println("|                                  |");
+            System.out.println("|      Quanto(s) quer comprar?     |");
+            System.out.println("|");
+            System.out.print("|  Quantidade: ");
+
+            int quantidade = myinputs.Ler.umInt();
+            
+            if (quantidade == 0) menuCliente();
+
+            String nomeProduto = arrayProduto.get(opcaoMenu - 1).getNome();
+
+            String quantidadeEmString = Integer.toString(quantidade);
+
+            arrayCliente.get(indiceUtilizadorAtualArraylist).encomendar(nomeProduto, quantidadeEmString);
+            
+            menuCliente();
+        } else if (opcaoMenu == 0) {
+            menuCliente();
+        } else {
+            System.err.println("           Opção inválida!          ");
+            menuCliente();
         }
+
     }
     
     public static void menuCarregarConta() throws Exception {
@@ -303,14 +316,18 @@ public class Projfinalpoo {
         
         opcaoMenu = myinputs.Ler.umInt();
         
-        if (opcaoMenu == 1) {
-            arrayCliente.remove(indiceUtilizadorAtualArraylist);
-            menuPrincipal();
-        } else if (opcaoMenu == 2) {
-            menuCliente();
-        } else {
-            System.out.println("           Opção inválida!          ");
-            eliminarConta();
+        switch (opcaoMenu) {
+            case 1:
+                arrayCliente.remove(indiceUtilizadorAtualArraylist);
+                menuPrincipal();
+                break;
+            case 2:
+                menuCliente();
+                break;
+            default:
+                System.err.println("           Opção inválida!          ");
+                eliminarConta();
+                break;
         }
     }
     
@@ -322,13 +339,12 @@ public class Projfinalpoo {
         System.out.println("|     SALDO: /*GETSALDO*/              |");
         System.out.println("|                                      |");
         System.out.println("|     1. EDITAR                        |");
-        System.out.println("|     2. CONSULTAR MOVIMENTOS          |");
-        System.out.println("|     3. COMPRAR RECURSOS AO FORNECEDOR|");
-        System.out.println("|     4. CONSULTAR PEDIDOS DE CLIENTES |");
-        System.out.println("|     5. CONSULTAR PEDIDOS DE          |");
+        System.out.println("|     2. COMPRAR RECURSOS AO FORNECEDOR|");
+        System.out.println("|     3. CONSULTAR PEDIDOS DE CLIENTES |");
+        System.out.println("|     4. CONSULTAR PEDIDOS DE          |");
         System.out.println("|        CARREGAMENTO DE CONTA         |");
-        System.out.println("|     6. GUARDAR NA BASE DE DADOS      |");
-        System.out.println("|     7. ALTERAR ACESSO A UM OU VARIOS |");
+        System.out.println("|     5. GUARDAR NA BASE DE DADOS      |");
+        System.out.println("|     6. ALTERAR ACESSO A UM OU VARIOS |");
         System.out.println("|        GESTOR(ES)                    |");
         System.out.println("|     0. TERMINAR SESSÃO               |");
         System.out.println("|                                      |");
@@ -343,19 +359,21 @@ public class Projfinalpoo {
                 menuEditar();
                 break;
             case 2:
-                menuConsultarMovimentosGestor();
+                if (arrayRecurso.isEmpty()) {
+                    System.out.println("|--------------------------------------|");
+                    System.out.println("|      Ainda não existem recursos!     |");
+                    menuGestor();
+                } else {
+                    fazerPedidoFornecedor();
+                }
                 break;
             case 3:
-                if (arrayRecurso.size() == 0) menuGestor();
-                fazerPedidoFornecedor();
-                break;
-            case 4:
                 consultarPedidoCliente();
                 break;
-            case 5:
+            case 4:
                 consultarPedidoCarregamento();
                 break;
-            case 6:
+            case 5:
                 System.out.println("| Deseja guardar todas as alterações feitas? |");
                 System.out.println("|                   1) Sim                   |");
                 System.out.println("|                   2) Não                   |");
@@ -373,15 +391,18 @@ public class Projfinalpoo {
                         menuGestor();
                         break;
                     default:
-                        System.err.println("OPÇÃO ERRADA");
+                        System.err.println("           Opção inválida!          ");
                         menuGestor();
                         break;
                 }
                 break;
-            case 7: 
+            case 6:
                 mudarAcesso();
                 break;
-                
+            default:
+                System.err.println("           Opção inválida!          ");
+                menuGestor();
+                break;
             case 0:
                 menuPrincipal();
                 break;
@@ -389,13 +410,13 @@ public class Projfinalpoo {
     }
 
     public static void menuEditar() throws Exception {
-        System.out.println("+--------------EDITAR-----------------+");
+        System.out.println("+---------------EDITAR----------------+");
         System.out.println("|                                     |");
         System.out.println("|        SALDO: /*GETSALDO*/          |");
         System.out.println("|                                     |");
         System.out.println("|        1. PRODUTOS                  |");
         System.out.println("|        2. RECURSOS                  |");
-        System.out.println("|        0. RETROCEDER                |");
+        System.out.println("|        0. VOLTAR                    |");
         System.out.println("|                                     |");
         System.out.println("+-------------------------------------+");
         System.out.println();
@@ -427,7 +448,7 @@ public class Projfinalpoo {
         System.out.println("|        1. EDITAR PRODUTO EXISTENTE  |");
         System.out.println("|        2. ADICIONAR PRODUTO         |");
         System.out.println("|        3. REMOVER PRODUTO           |");
-        System.out.println("|        0. RETROCEDER                |");
+        System.out.println("|        0. VOLTAR                    |");
         System.out.println("|                                     |");
         System.out.println("+-------------------------------------+");
         System.out.println();
@@ -460,7 +481,7 @@ public class Projfinalpoo {
         System.out.println("|                                     |");
 
         // Dá print a todos os produtos existentes
-        if (arrayProduto.size() == 0) {
+        if (arrayProduto.isEmpty()) {
             System.out.println("Não existem produtos.");
             editarProdutos();
         } else {
@@ -536,8 +557,15 @@ public class Projfinalpoo {
         System.out.println("|     INSIRA QUANTOS RECURSOS SÃO     |");
         System.out.println("|              NECESSARIOS            |");
         System.out.println("|                                     |");
-        System.out.print("|  Nuemero de recuros: ");
+        System.out.print("|  Numero de recuros: ");
         int recursosNecessarios = myinputs.Ler.umInt();
+        
+        if (recursosNecessarios == 0) {
+            System.err.println("        Os produtos têm de ser         ");
+            System.err.println("          feitos de recursos!          ");
+            menuEditar();
+        }
+        
         String[] stringRecursosNecessarios = new String[recursosNecessarios];
         for (int i = 0; i < stringRecursosNecessarios.length; i++) {
             System.out.println("|                                     |");
@@ -545,8 +573,7 @@ public class Projfinalpoo {
             System.out.print("|  Nome recurso: ");
             String nomeRecurso = myinputs.Ler.umaString();
             stringRecursosNecessarios[i] = nomeRecurso;
-
-          
+            
             boolean naoExiste = true;
             for (int j = 0; j < arrayRecurso.size(); j++) {
                 if (arrayRecurso.get(j).getNome().equals(nomeRecurso)) {
@@ -558,7 +585,6 @@ public class Projfinalpoo {
                 do {
                     opcaoValida = true;
                     System.out.println("|                                     |");
-                    System.out.println("|      INSIRA O PREÇO DO PRODUTO      |");
                     System.out.println("|   O recurso introduzido ainda não   |");
                     System.out.println("| exite. Pretende adiciona-lo agora?  |");
                     System.out.println("|  1. Sim                             |");
@@ -580,7 +606,7 @@ public class Projfinalpoo {
         System.out.println("|                                     |");
         System.out.println("|      INSIRA O PREÇO DO PRODUTO      |");
         System.out.println("|                                     |");
-        System.out.println("|  Proço: |");
+        System.out.print("|  Preço: ");
         double preco = myinputs.Ler.umDouble();
 
         classeProduto = new Produto(NomeAdicionarProduto, adicionarProdutoStock, stringRecursosNecessarios, preco);
@@ -594,7 +620,7 @@ public class Projfinalpoo {
         System.out.println("           REMOVER PRODUTO            ");
         System.out.println("                                      ");
         // Dá print a todos os produtos existentes
-        if (arrayProduto.size() == 0) {
+        if (arrayProduto.isEmpty()) {
             System.out.println("Não existem produtos.");
             editarRecursos();
         } else {
@@ -625,7 +651,7 @@ public class Projfinalpoo {
         System.out.println("|        1. EDITAR RECURSO EXISTENTE  |");
         System.out.println("|        2. ADICIONAR RECURSO         |");
         System.out.println("|        3. REMOVER RECURSO           |");
-        System.out.println("|        0. RETROCEDER                |");
+        System.out.println("|        0. VOLTAR                    |");
         System.out.println("|                                     |");
         System.out.println("+-------------------------------------+");
         System.out.println();
@@ -662,7 +688,7 @@ public class Projfinalpoo {
         System.out.println("|                                     |");
 
         // Dá print a todos os produtos existentes
-        if (arrayRecurso.size() == 0) {
+        if (arrayRecurso.isEmpty()) {
             System.out.println("|        Não existem recursos         |");
             editarRecursos();
         } else {
@@ -740,7 +766,7 @@ public class Projfinalpoo {
         System.out.println("|          REMOVER RECURSO            |");
         System.out.println("|                                     |");
         // Dá print a todos os recursos existentes
-        if (arrayRecurso.size() == 0) {
+        if (arrayRecurso.isEmpty()) {
             System.out.println("|        Não existem recursos         |");
             editarRecursos();
         } else {
@@ -757,55 +783,24 @@ public class Projfinalpoo {
         
         editarRecursos();
     }
-    
-
-    public static void menuConsultarMovimentosGestor() throws Exception {
-        System.out.println("-----------" /* Xico.getUser()*/);
-        System.out.println("+--------------MOVIMENTOS-------------+");
-        System.out.println("|                                     |");
-        System.out.println("|        SALDO: /*GETSALDO*/          |");
-        System.out.println("|                                     |");
-        System.out.println("|        TOTAL DE DESPESAS:           |" /* + GETTOTALDESPESAS */);
-        System.out.println("|         >BOLO:                      |" /* + GETTOTALDESPESASSBOLO */);
-        System.out.println("|         >IOGURTE:                   |" /* + GETTOTALDESPESASIOGURTE */);
-        System.out.println("|         >SUMO:                      |" /* + GETTOTALDESPESASSUMOS */);
-        System.out.println("|                                     |");
-        System.out.println("|        TOTAL DE UNIDADES COMPRADAS: |" /* GETTOTALUNIDADESCOMPRADAS */);
-        System.out.println("|         >BOLO:                      |" /* + GETTOTALUNIDADESBOLO */);
-        System.out.println("|         >IOGURTE:                   |" /* + GETTOTALDESPESASIOGURTES */);
-        System.out.println("|         >SUMO:                      |" /* + GETTOTALDESPESASSUMOS */);
-        System.out.println("|                                     |");
-        System.out.println("|        0. RETROCEDER                |");
-        System.out.println("|                                     |");
-        System.out.println("+-------------------------------------+");
-        System.out.println();
-        System.out.print("Opção: ");
-
-        String retroceder = myinputs.Ler.umaString();
-
-        switch (retroceder) {
-            default:
-                menuGestor();
-                break;
-        }
-    }
 
     public static void fazerPedidoFornecedor() throws Exception {
         int recursoEncomendar = 1;
         do {
             System.out.println("+-------------------------------------+");
-            System.out.println("                                      ");
-            System.out.println("           ENCOMENDAR RECURSO         ");
-            System.out.println("                                      ");
-            System.out.println("QUAL O RECURSO QUE PRETENDE ENCOMENDAR?");
-            System.out.println("                                      ");
+            System.out.println("|                                     |");
+            System.out.println("|          ENCOMENDAR RECURSO         |");
+            System.out.println("|                                     |");
+            System.out.println("|      QUAL O RECURSO QUE PRETENDE    |");
+            System.out.println("|              ENCOMENDAR?            |");
+            System.out.println("|                                     |");
 
             for (int i = 0; i < arrayRecurso.size(); i++) {
-                System.out.println("           " + (i+1) + " " + arrayRecurso.get(i).getNome());
+                System.out.println("|        " + (i+1) + " " + arrayRecurso.get(i).getNome());
 
             }
-            System.out.println("           0. RETROCEDER              ");
-            System.out.println("                                      ");
+            System.out.println("|        0. VOLTAR                    |");
+            System.out.println("|                                     |");
             System.out.print("  Opção: ");
 
             recursoEncomendar = myinputs.Ler.umInt();
@@ -815,22 +810,23 @@ public class Projfinalpoo {
 
         System.out.println("|                                     |");
         System.out.println("|        INSIRA A QUANTIDADE DE       |");
-        System.out.println("|         " + arrayRecurso.get(recursoEncomendar - 1).getNome() + " A ENCOMENDAR        |");
+        System.out.println("|         " + arrayRecurso.get(recursoEncomendar - 1).getNome() + " A ENCOMENDAR");
         System.out.println("|                                     |");
         System.out.println("|        PREÇO UNIDADE: " + arrayRecurso.get(recursoEncomendar - 1).getCusto());
-        System.out.println("+-------------------------------------+");
-        System.out.println();
-        System.out.print("Quantidade: ");
+        System.out.println("|                                     |");
+        System.out.print("|  Quantidade: ");
         
         double quantidade = myinputs.Ler.umDouble();
         
-        Conta conta = new Conta("JOAQUIM", 2000);
+        System.out.println(arrayRecurso.get((recursoEncomendar - 1)).getCusto());
         
-        if ((conta.getSaldo() - arrayRecurso.get(opcaoMenu - 1).getCusto() * quantidade) > 0) {
+        double custoDaCompra = arrayRecurso.get(recursoEncomendar - 1).getCusto() * quantidade;
+        
+        if ((arrayGestor.get(0).contaGeral.getSaldo() - custoDaCompra) >= 0) {
             System.out.println("COMPRA EFETUADA COM SUCESSO");
-
-            //arrayGestor.get(0).conta.decSaldo(arrayRecurso.get(opcaoMenu - 1).getCusto() * quantidade);
-            //arrayRecurso.get(opcaoMenu - 1).incQuantidadeStock(quantidade);
+            
+            arrayGestor.get(0).contaGeral.decSaldo(custoDaCompra);
+            arrayRecurso.get(recursoEncomendar - 1).incQuantidadeStock(quantidade);
 
             menuGestor();
         } else{
@@ -841,42 +837,60 @@ public class Projfinalpoo {
 
     public static void consultarPedidoCliente() throws Exception {
         System.out.println("+-------------------------------------+");
-        System.out.println("                                      ");
-        System.out.println("           PEDIDOS CLIENTE            ");
-        System.out.println("                                      ");
-        System.out.println("           BOLOS: ");
-        /* + getMetodoEncomendaBolo */
-        System.out.println("                                      ");
-        System.out.println("           IOGURTES: ");
-        /* + getMetodoEncomendaIgurte */
-        System.out.println("                                      ");
-        System.out.println("           SUMOS: ");
-        /* + getMetodoEncomedaSumo */
-        System.out.println("                                      ");
-        System.out.println("           1. PRODUZIR ENCOMENDAS     ");
-        System.out.println("                                      ");
-        System.out.println("           0. RETROCEDER              ");
-        System.out.println("                                      ");
-        System.out.println("+-------------------------------------+");
-        System.out.println();
-        System.out.print("Opção: ");
+        System.out.println("|                                     |");
+        System.out.println("|           PEDIDO CLIENTES           |");
+        System.out.println("|                                     |");
+        
+        for(int i = 0; i < arrayCliente.size(); i++) {
+            System.out.println( "|      " + (i+1) + ". " + arrayCliente.get(i).getNomeUtilizador());
+            for (int j = 0; j < arrayCliente.get(i).getAllaylist().size(); j++) {
+                
+                System.out.print("|        " + arrayCliente.get(i).getPordutoEQuantidade(j, 0) );
+                System.out.print(" - ");
+                System.out.print( arrayCliente.get(i).getPordutoEQuantidade(j, 1) );
+                System.out.print(";");System.out.println("");
+            }
+            
+            System.out.println();
+        }
+        System.out.println("|                                     |");
+        System.out.println("|      0. VOLTAR                      |");
+        System.out.println("|                                     |");
+        System.out.print("|  Cliente opção: ");
 
         opcaoMenu = myinputs.Ler.umInt();
+        
+        System.out.println("|                                     |");
+        
+        int indiceCliente = opcaoMenu - 1;
+        
+        int indiceProduto;
+        do {
+            for (int j = 0; j < arrayCliente.get(indiceCliente).getAllaylist().size(); j++) {
+                System.out.print("|      " + (j + 1) + ". " + arrayCliente.get(indiceCliente).getPordutoEQuantidade(j, 0));
+                System.out.print(" - ");
+                System.out.print(arrayCliente.get(indiceCliente).getPordutoEQuantidade(j, 1));
+                System.out.print(";");
+                System.out.println("|                                     |");
+            }
+            
+            System.out.println("|      0. VOLTAR                      |");
+            System.out.println("|                                     |");
+            System.out.print("|  Produto: ");
 
-        switch (opcaoMenu) {
-            case 1:
-                /* Metodo FabricarBolo( getMetodoEncomendaBolo ) */
- /* Metodo FabricarIogurte( getMetodoEncomendaIgurte ) */
- /* Metodo FabricarSumo( getMetodoEncomedaSumo ) */
-
- /* Metodo EnviarBolo( getMetodoEncomendaBolo ) */
- /* Metodo EnviarIogurte( getMetodoEncomendaIgurte ) */
- /* Metodo EnviarSumo( getMetodoEncomedaSumo ) */
-                break;
-            case 0:
-                menuGestor();
-                break;
-        }
+            indiceProduto = myinputs.Ler.umInt();
+            
+            if (indiceProduto == 0) menuGestor();
+            
+            if (indiceProduto < 0 || indiceProduto > arrayCliente.get(indiceCliente).getAllaylist().size() + 1) {
+                System.out.println("|           Produto inválido!         |");
+                System.out.println("|                                     |");
+            }
+        } while(indiceProduto < 0 || indiceProduto > arrayCliente.get(indiceCliente).getAllaylist().size() + 1);
+        
+        String nomeProduto = arrayCliente.get(indiceCliente).getPordutoEQuantidade(indiceProduto, 0);
+        
+        
     }
     
     public static void consultarPedidoCarregamento() {
@@ -1031,8 +1045,16 @@ public class Projfinalpoo {
 
     public static void main(String[] args) throws IOException, Exception {
         leitura();
-        classeGestor = new Gestor("GestorPrincipal", "gestorprincipal", true);
+        classeGestor = new Gestor("2", "2", true, 1000);
         arrayGestor.add(classeGestor);
+        
+        classeCliente = new Cliente("1", "1");
+        arrayCliente.add(classeCliente);
+        
+        String[] recursos = {"leite","ovo"};
+        classeProduto = new Produto("bolo", 5, recursos, 2);
+        arrayProduto.add(classeProduto);
+        
         menuPrincipal();
 
     }

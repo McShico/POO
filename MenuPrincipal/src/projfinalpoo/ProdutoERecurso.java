@@ -25,4 +25,12 @@ public class ProdutoERecurso {
     public void setQuantidadeStock(double quantidadeStock) {
         this.quantidadeStock = quantidadeStock;
     }
+    
+    public void incQuantidadeStock(double quantidadeStockInc) {
+        this.quantidadeStock += quantidadeStockInc;
+    }
+    
+    public void decQuantidadeStock(double quantidadeStockDec) {
+        this.quantidadeStock += quantidadeStockDec;
+    }
 }

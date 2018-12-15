@@ -3,12 +3,12 @@ package projfinalpoo;
 public class Produto extends ProdutoERecurso{
     private double quantidadeEncomendada;
     private double quantidadeEncomendadaTotal;
-    private String[] stringArray;
+    private String[] recursosComponentes;
     private double preco;
 
-    public Produto(String nome, double quantidadeStock, String[] stringArray, double preco) {
+    public Produto(String nome, double quantidadeStock, String[] recursosComponentes, double preco) {
         super(nome, quantidadeStock);
-        this.stringArray = stringArray;
+        this.recursosComponentes = recursosComponentes;
         this.preco = preco;
     }
     
@@ -39,15 +39,15 @@ public class Produto extends ProdutoERecurso{
     }
 
     public String[] getStringArray() {
-        return stringArray;
+        return recursosComponentes;
     }
 
     public void setStringArray(String[] stringArray) {
-        this.stringArray = stringArray;
+        this.recursosComponentes = stringArray;
     }
     
     public String getValorPosicaoStringArray(int i) {
-        return stringArray[i];
+        return recursosComponentes[i];
     }
 
     public double getPreco() {

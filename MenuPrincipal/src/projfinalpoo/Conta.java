@@ -13,7 +13,7 @@ public class Conta {
     
     public Conta(String nomeDoUtilizador, double saldo) {
         this.nomeUtilizadorConta = nomeDoUtilizador;
-        this.saldo = 1000;
+        this.saldo = saldo;
     }
 
     public String getNomeDoUtilizador() {
@@ -37,6 +37,6 @@ public class Conta {
     }
     
     public void decSaldo(double saldo) {
-        this.saldo += saldo;
+        this.saldo -= saldo;
     }
 }
