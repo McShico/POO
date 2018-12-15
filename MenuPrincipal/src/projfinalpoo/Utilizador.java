@@ -1,6 +1,10 @@
 package projfinalpoo;
 
-public abstract class Utilizador {
+import java.util.ArrayList;
+import java.io.*;
+
+
+public abstract class Utilizador implements Serializable{
     private String nomeUtilizador;
     private String password;
     

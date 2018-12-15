@@ -12,6 +12,7 @@ import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStreamWriter;
+import static java.lang.System.exit;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import javax.xml.bind.DatatypeConverter;
@@ -61,6 +62,11 @@ public class Projfinalpoo {
             case 0:
                 System.out.println("");
                 System.out.println("********** Até uma próxima *********");
+                escritaProduto();
+                escritaRecurso();
+                escritaCliente();
+                escritaGestor();
+                exit(0);
                 break;
         }
     }
@@ -72,14 +78,9 @@ public class Projfinalpoo {
         System.out.println("|                                  |");
         System.out.println("|          1 - Cliente             |");
         System.out.println("|          2 - Gestor              |");
-        System.out.println("|                                  |");
-        System.out.println("|          0 - Voltar              |");
-        System.out.println("|                                  |");
         System.out.print("|  Opção: ");
 
         opcaoMenu = myinputs.Ler.umInt();
-        
-        if (opcaoMenu == 0) menuPrincipal();
 
         System.out.println("|                                  |");
         System.out.println("|        INTRODUZA USERNAME        |");
@@ -92,7 +93,8 @@ public class Projfinalpoo {
         System.out.print("|           ");
 
         String password = myinputs.Ler.umaString();
-        password = getHash(password.getBytes(), "SHA-256");
+
+        System.out.println("+----------------------------------+");
 
         switch (opcaoMenu) {
             case 1:
@@ -137,13 +139,9 @@ public class Projfinalpoo {
         System.out.println("|          1 - Cliente             |");
         System.out.println("|          2 - Gestor              |");
         System.out.println("|                                  |");
-        System.out.println("|          0 - Voltar              |");
-        System.out.println("|                                  |");
         System.out.print("|  Opção: ");
 
         opcaoMenu = myinputs.Ler.umInt();
-        
-        if (opcaoMenu == 0) menuPrincipal();
 
         System.out.println("|                                  |");
         System.out.println("|        INTRODUZA USERNAME        |");
@@ -154,7 +152,7 @@ public class Projfinalpoo {
         System.out.println("|        INTRODUZA PASSWORD        |");
         System.out.print("|          ");
         String novaPassword = myinputs.Ler.umaString();
-        novaPassword = getHash(novaPassword.getBytes(), "SHA-256");
+
         switch (opcaoMenu) {
             case 1:
                 for (int i = 0; i < arrayCliente.size(); i++) {
@@ -351,8 +349,7 @@ public class Projfinalpoo {
         System.out.println("|     3. CONSULTAR PEDIDOS DE CLIENTES |");
         System.out.println("|     4. CONSULTAR PEDIDOS DE          |");
         System.out.println("|        CARREGAMENTO DE CONTA         |");
-        System.out.println("|     5. GUARDAR NA BASE DE DADOS      |");
-        System.out.println("|     6. ALTERAR ACESSO A UM OU VARIOS |");
+        System.out.println("|     5. ALTERAR ACESSO A UM OU VARIOS |");
         System.out.println("|        GESTOR(ES)                    |");
         System.out.println("|     0. TERMINAR SESSÃO               |");
         System.out.println("|                                      |");
@@ -380,30 +377,8 @@ public class Projfinalpoo {
                 break;
             case 4:
                 consultarPedidoCarregamento();
-                break;
+                break;            
             case 5:
-                System.out.println("| Deseja guardar todas as alterações feitas? |");
-                System.out.println("|                   1) Sim                   |");
-                System.out.println("|                   2) Não                   |");
-                System.out.println("|                                            |");
-                System.out.print("| Opção: ");
-                opcaoMenu = myinputs.Ler.umInt();
-                switch (opcaoMenu) {
-                    case 1:
-                        escrita();
-                        menuGestorContaPrincipal();
-                        break;
-                    case 2:
-                        System.out.println("  As alterações não foram guardadas ");
-                        menuGestorContaPrincipal();
-                        break;
-                    default:
-                        System.err.println("           Opção inválida!          ");
-                        menuGestorContaPrincipal();
-                        break;
-                }
-                break;
-            case 6:
                 mudarAcesso();
                 break;
             default:
@@ -426,7 +401,6 @@ public class Projfinalpoo {
         System.out.println("|     3. CONSULTAR PEDIDOS DE CLIENTES |");
         System.out.println("|     4. CONSULTAR PEDIDOS DE          |");
         System.out.println("|        CARREGAMENTO DE CONTA         |");
-        System.out.println("|     5. GUARDAR NA BASE DE DADOS      |");
         System.out.println("|     0. TERMINAR SESSÃO               |");
         System.out.println("|                                      |");
         System.out.println("+--------------------------------------+");
@@ -447,7 +421,7 @@ public class Projfinalpoo {
                         menuGestorContaPrincipal();
                     } else {
                         menuGestor();
-                    }
+                    };
                 } else {
                     fazerPedidoFornecedor();
                 }
@@ -457,40 +431,6 @@ public class Projfinalpoo {
                 break;
             case 4:
                 consultarPedidoCarregamento();
-                break;
-            case 5:
-                System.out.println("| Deseja guardar todas as alterações feitas? |");
-                System.out.println("|                   1) Sim                   |");
-                System.out.println("|                   2) Não                   |");
-                System.out.println("|                                            |");
-                System.out.print("| Opção: ");
-                opcaoMenu = myinputs.Ler.umInt();
-                switch (opcaoMenu) {
-                    case 1:
-                        escrita();
-                        if (arrayGestor.get(indiceUtilizadorAtualArraylist).getNomeUtilizador().equals("GestorPrincipal")) {
-                            menuGestorContaPrincipal();
-                        } else {
-                            menuGestor();
-                        }
-                        break;
-                    case 2:
-                        System.out.println("As alterações não foram guardadas");
-                        if (arrayGestor.get(indiceUtilizadorAtualArraylist).getNomeUtilizador().equals("GestorPrincipal")) {
-                            menuGestorContaPrincipal();
-                        } else {
-                            menuGestor();
-                        }
-                        break;
-                    default:
-                        System.err.println("           Opção inválida!          ");
-                        if (arrayGestor.get(indiceUtilizadorAtualArraylist).getNomeUtilizador().equals("GestorPrincipal")) {
-                            menuGestorContaPrincipal();
-                        } else {
-                            menuGestor();
-                        }
-                        break;
-                }
                 break;
             default:
                 System.err.println("           Opção inválida!          ");
@@ -954,11 +894,11 @@ public class Projfinalpoo {
 
         for (int i = 0; i < arrayCliente.size(); i++) {
             System.out.println("|      " + (i + 1) + ". " + arrayCliente.get(i).getNomeUtilizador());
-            for (int j = 0; j < arrayCliente.get(i).getArraylist().size(); j++) {
+            for (int j = 0; j < arrayCliente.get(i).getAllaylist().size(); j++) {
 
-                System.out.print("|        " + arrayCliente.get(i).getProdutoOuQuantidade(j, 0));
+                System.out.print("|        " + arrayCliente.get(i).getProdutoEQuantidade(j, 0));
                 System.out.print(" - ");
-                System.out.print(arrayCliente.get(i).getProdutoOuQuantidade(j, 1));
+                System.out.print(arrayCliente.get(i).getProdutoEQuantidade(j, 1));
                 System.out.println(";");
             }
 
@@ -993,10 +933,10 @@ public class Projfinalpoo {
 
         int indiceProduto;
         do {
-            for (int j = 0; j < arrayCliente.get(indiceCliente).getArraylist().size(); j++) {
-                System.out.print("|      " + (j + 1) + ". " + arrayCliente.get(indiceCliente).getProdutoOuQuantidade(j, 0));
+            for (int j = 0; j < arrayCliente.get(indiceCliente).getAllaylist().size(); j++) {
+                System.out.print("|      " + (j + 1) + ". " + arrayCliente.get(indiceCliente).getProdutoEQuantidade(j, 0));
                 System.out.print(" - ");
-                System.out.println(arrayCliente.get(indiceCliente).getProdutoOuQuantidade(j, 1));
+                System.out.println(arrayCliente.get(indiceCliente).getProdutoEQuantidade(j, 1));
 
             }
 
@@ -1015,21 +955,21 @@ public class Projfinalpoo {
                 }
             }
 
-            if (indiceProduto < 0 || indiceProduto > arrayCliente.get(indiceCliente).getArraylist().size() + 1) {
+            if (indiceProduto < 0 || indiceProduto > arrayCliente.get(indiceCliente).getAllaylist().size() + 1) {
                 System.out.println("|           Produto inválido!         |");
                 System.out.println("|                                     |");
             }
-        } while (indiceProduto < 0 || indiceProduto > arrayCliente.get(indiceCliente).getArraylist().size() + 1);
+        } while (indiceProduto < 0 || indiceProduto > arrayCliente.get(indiceCliente).getAllaylist().size() + 1);
 
         indiceProduto--;
 
-        String nomeProduto = arrayCliente.get(indiceCliente).getProdutoOuQuantidade(indiceProduto, 0);
+        String nomeProduto = arrayCliente.get(indiceCliente).getProdutoEQuantidade(indiceProduto, 0);
 
         double precoProduto = 0;
 
         for (int i = 0; i < arrayProduto.size(); i++) {
             if (arrayProduto.get(i).getNome().equals(nomeProduto)) {
-                if (Double.parseDouble(arrayCliente.get(indiceCliente).getProdutoOuQuantidade(indiceProduto, 1)) > arrayProduto.get(i).getQuantidadeStock()) {
+                if (Double.parseDouble(arrayCliente.get(indiceCliente).getProdutoEQuantidade(indiceProduto, 1)) > arrayProduto.get(i).getQuantidadeStock()) {
                     System.err.println("|     Não tem stock suficiente para   |");
                     System.err.println("|       efetuar esta confimação.      |");
                     if (arrayGestor.get(indiceUtilizadorAtualArraylist).getNomeUtilizador().equals("GestorPrincipal")) {
@@ -1039,11 +979,11 @@ public class Projfinalpoo {
                     }
                 }
                 precoProduto = arrayProduto.get(i).getPreco();
-                arrayProduto.get(i).decQuantidadeStock(Double.parseDouble(arrayCliente.get(indiceCliente).getProdutoOuQuantidade(indiceProduto, 1)));
+                arrayProduto.get(i).decQuantidadeStock(Double.parseDouble(arrayCliente.get(indiceCliente).getProdutoEQuantidade(indiceProduto, 1)));
             }
         }
 
-        arrayGestor.get(0).contaGeral.incSaldo(precoProduto * Double.parseDouble(arrayCliente.get(indiceCliente).getProdutoOuQuantidade(indiceProduto, 1)));
+        arrayGestor.get(0).contaGeral.incSaldo(precoProduto * Double.parseDouble(arrayCliente.get(indiceCliente).getProdutoEQuantidade(indiceProduto, 1)));
     }
 
     public static void consultarPedidoCarregamento() throws Exception {
@@ -1085,15 +1025,12 @@ public class Projfinalpoo {
         System.out.println("|                                      |");
         System.out.println("|        1. SIM                        |");
         System.out.println("|        2. NAO                        |");
-        System.out.println("|                                      |");
-        System.out.print("| Opção: ");
 
         int validacao = myinputs.Ler.umInt();
 
         switch (validacao) {
             case 1:
                 arrayCliente.get(opcaoMenu - 1).conta.incSaldo(arrayCliente.get(opcaoMenu - 1).getSaldoPedido());
-                arrayCliente.get(opcaoMenu - 1).setSaldoPedido(0);
                 if (arrayGestor.get(indiceUtilizadorAtualArraylist).getNomeUtilizador().equals("GestorPrincipal")) {
                     menuGestorContaPrincipal();
                 } else {
@@ -1142,7 +1079,7 @@ public class Projfinalpoo {
             System.out.println("|                                      |");
             System.out.println("|        1. SIM                        |");
             System.out.println("|        2. NAO                        |");
-            System.out.println("|                                      |");
+            System.out.println("|                                          |");
             System.out.print("| Opção: ");
 
             int validacao = myinputs.Ler.umInt();
@@ -1188,7 +1125,7 @@ public class Projfinalpoo {
     }
     // ********************** Mudar Acesso a um (ou vários) Gestor(es) ********************** //
 
-    public static void escrita() throws Exception {
+    public static void escritaProduto() throws Exception {
         try {
             File f_p = new File("produto.dat");
             FileOutputStream fos_p = new FileOutputStream(f_p);
@@ -1196,21 +1133,39 @@ public class Projfinalpoo {
             os_p.writeObject(arrayProduto);
             os_p.flush();
             os_p.close();
-
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+    
+    public static void escritaRecurso() throws Exception {
+        try {
             File f_r = new File("recurso.dat");
             FileOutputStream fos_r = new FileOutputStream(f_r);
             ObjectOutputStream os_r = new ObjectOutputStream(fos_r);
             os_r.writeObject(arrayRecurso);
             os_r.flush();
             os_r.close();
-
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+    
+    public static void escritaCliente() throws Exception {
+        try {
             File f_c = new File("cliente.dat");
             FileOutputStream fos_c = new FileOutputStream(f_c);
             ObjectOutputStream os_c = new ObjectOutputStream(fos_c);
             os_c.writeObject(arrayCliente);
             os_c.flush();
             os_c.close();
-
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+    
+    public static void escritaGestor() throws Exception {
+        try {
             File f_g = new File("gestor.dat");
             FileOutputStream fos_g = new FileOutputStream(f_g);
             ObjectOutputStream os_g = new ObjectOutputStream(fos_g);
@@ -1220,9 +1175,6 @@ public class Projfinalpoo {
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
-
-        System.out.println("Alterações guardadas com sucesso");
-
     }
 
     // ********************** Transferir Dados ********************** //
@@ -1235,7 +1187,7 @@ public class Projfinalpoo {
 
             FileInputStream fis_r = new FileInputStream("recurso.dat");
             ObjectInputStream is_r = new ObjectInputStream(fis_r);
-            arrayRecurso = (ArrayList) is_p.readObject();
+            arrayRecurso = (ArrayList) is_r.readObject();
             is_r.close();
 
             FileInputStream fis_c = new FileInputStream("cliente.dat");
@@ -1268,15 +1220,15 @@ public class Projfinalpoo {
 
     public static void main(String[] args) throws IOException, Exception {
         leitura();
-        classeGestor = new Gestor("GestorPrincipal", "2", true, 1000);
-        arrayGestor.add(classeGestor);
+//        classeGestor = new Gestor("GestorPrincipal", "2", true, 1000);
+//        arrayGestor.add(classeGestor);
 
-        classeCliente = new Cliente("1", "1");
-        arrayCliente.add(classeCliente);
+//        classeCliente = new Cliente("1", "1");
+//        arrayCliente.add(classeCliente);
 
-        String[] recursos = {"leite", "ovo"};
-        classeProduto = new Produto("bolo", 5, recursos, 2);
-        arrayProduto.add(classeProduto);
+//        String[] recursos = {"leite", "ovo"};
+//        classeProduto = new Produto("bolo", 5, recursos, 2);
+//        arrayProduto.add(classeProduto);
 
         menuPrincipal();
 
