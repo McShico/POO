@@ -72,9 +72,14 @@ public class Projfinalpoo {
         System.out.println("|                                  |");
         System.out.println("|          1 - Cliente             |");
         System.out.println("|          2 - Gestor              |");
+        System.out.println("|                                  |");
+        System.out.println("|          0 - Voltar              |");
+        System.out.println("|                                  |");
         System.out.print("|  Opção: ");
 
         opcaoMenu = myinputs.Ler.umInt();
+        
+        if (opcaoMenu == 0) menuPrincipal();
 
         System.out.println("|                                  |");
         System.out.println("|        INTRODUZA USERNAME        |");
@@ -87,8 +92,7 @@ public class Projfinalpoo {
         System.out.print("|           ");
 
         String password = myinputs.Ler.umaString();
-        getHash(password.getBytes(), "SHA-256");
-        System.out.println("+----------------------------------+");
+        password = getHash(password.getBytes(), "SHA-256");
 
         switch (opcaoMenu) {
             case 1:
@@ -133,9 +137,13 @@ public class Projfinalpoo {
         System.out.println("|          1 - Cliente             |");
         System.out.println("|          2 - Gestor              |");
         System.out.println("|                                  |");
+        System.out.println("|          0 - Voltar              |");
+        System.out.println("|                                  |");
         System.out.print("|  Opção: ");
 
         opcaoMenu = myinputs.Ler.umInt();
+        
+        if (opcaoMenu == 0) menuPrincipal();
 
         System.out.println("|                                  |");
         System.out.println("|        INTRODUZA USERNAME        |");
@@ -146,7 +154,7 @@ public class Projfinalpoo {
         System.out.println("|        INTRODUZA PASSWORD        |");
         System.out.print("|          ");
         String novaPassword = myinputs.Ler.umaString();
-        getHash(novaPassword.getBytes(), "SHA-256");
+        novaPassword = getHash(novaPassword.getBytes(), "SHA-256");
         switch (opcaoMenu) {
             case 1:
                 for (int i = 0; i < arrayCliente.size(); i++) {
@@ -386,7 +394,7 @@ public class Projfinalpoo {
                         menuGestorContaPrincipal();
                         break;
                     case 2:
-                        System.out.println("As alterações não foram guardadas");
+                        System.out.println("  As alterações não foram guardadas ");
                         menuGestorContaPrincipal();
                         break;
                     default:

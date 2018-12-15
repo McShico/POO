@@ -1,8 +1,5 @@
 package projfinalpoo;
 
-import java.util.ArrayList;
-
-
 public abstract class Utilizador {
     private String nomeUtilizador;
     private String password;
