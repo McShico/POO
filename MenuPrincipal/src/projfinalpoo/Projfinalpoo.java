@@ -87,7 +87,7 @@ public class Projfinalpoo {
         System.out.print("|           ");
 
         String password = myinputs.Ler.umaString();
-
+        getHash(password.getBytes(), "SHA-256");
         System.out.println("+----------------------------------+");
 
         switch (opcaoMenu) {
@@ -146,7 +146,7 @@ public class Projfinalpoo {
         System.out.println("|        INTRODUZA PASSWORD        |");
         System.out.print("|          ");
         String novaPassword = myinputs.Ler.umaString();
-
+        getHash(novaPassword.getBytes(), "SHA-256");
         switch (opcaoMenu) {
             case 1:
                 for (int i = 0; i < arrayCliente.size(); i++) {
