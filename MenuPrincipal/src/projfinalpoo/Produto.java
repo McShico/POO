@@ -59,7 +59,4 @@ public class Produto extends ProdutoERecurso implements Serializable{
     public void setPreco(double preco) {
         this.preco = preco;
     }
-    
-    
-    
 }
