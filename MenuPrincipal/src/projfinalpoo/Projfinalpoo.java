@@ -1209,12 +1209,14 @@ public class Projfinalpoo {
 
     public static void main(String[] args) throws IOException, Exception {
         leitura();
-//        classeGestor = new Gestor("GestorPrincipal", "gestor", true, 1000);
+//        classeGestor = new Gestor("GestorPrincipal", getHash("gestor".getBytes(), "SHA-256"), true, 1000);
 //        arrayGestor.add(classeGestor);
-
-//        classeCliente = new Cliente("1", "1");
+//
+//        classeCliente = new Cliente("Albertino", getHash("albertino".getBytes(), "SHA-256"));
 //        arrayCliente.add(classeCliente);
-
+//
+//        classeCliente = new Cliente("Josefina", getHash("josegina".getBytes(), "SHA-256"));
+//        arrayCliente.add(classeCliente);
 //        String[] recursos = {"leite", "ovo"};
 //        classeProduto = new Produto("bolo", 5, recursos, 2);
 //        arrayProduto.add(classeProduto);
