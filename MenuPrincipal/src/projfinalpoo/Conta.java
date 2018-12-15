@@ -1,7 +1,8 @@
 package projfinalpoo;
 
+import java.io.*;
 
-public class Conta {
+public class Conta implements Serializable{
     
     private String nomeUtilizadorConta;
     private double saldo;

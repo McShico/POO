@@ -1,6 +1,7 @@
 package projfinalpoo;
+import java.io.*;
 
-public class Recurso extends ProdutoERecurso{
+public class Recurso extends ProdutoERecurso implements Serializable{
     
     public double custo;
     

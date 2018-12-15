@@ -1,6 +1,7 @@
 package projfinalpoo;
+import java.io.*;
 
-public class ProdutoERecurso {
+public class ProdutoERecurso implements Serializable{
     
     private String nome;
     private double quantidadeStock;

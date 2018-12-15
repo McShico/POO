@@ -1,6 +1,8 @@
 package projfinalpoo;
 
-public class Produto extends ProdutoERecurso{
+import java.io.*;
+
+public class Produto extends ProdutoERecurso implements Serializable{
     private double quantidadeEncomendada;
     private double quantidadeEncomendadaTotal;
     private String[] recursosComponentes;

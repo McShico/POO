@@ -1,6 +1,8 @@
 package projfinalpoo;
 
-public class Gestor extends Utilizador{
+import java.io.*;
+
+public class Gestor extends Utilizador implements Serializable{
     
     public boolean acesso;
     Conta contaGeral;
@@ -27,4 +29,6 @@ public class Gestor extends Utilizador{
     void set(int i, boolean b) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    
 }
