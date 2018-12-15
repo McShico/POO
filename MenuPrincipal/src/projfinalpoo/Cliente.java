@@ -5,33 +5,33 @@ import java.util.ArrayList;
 public class Cliente extends Utilizador {
     
     public Conta conta;
-    public String[] NomeEQuantidade = new String[2];
-    public ArrayList<String[]> arraylist = new ArrayList<String[]>();
+    public ArrayList<ArrayList<String>> arraylist = new ArrayList<ArrayList<String>>();
+    ArrayList<String> NomeEQuantidade = new ArrayList<String>();
     public double saldoPedido;
     
     public Cliente(String nomeUtilizador, String password) {
         super(nomeUtilizador, password);
-        conta = new Conta(nomeUtilizador);
+        conta = new Conta(nomeUtilizador, 50);
         this.saldoPedido = 0;
     }
-    
-    public ArrayList<String[]> getAllaylist() {
+
+    public ArrayList<ArrayList<String>> getArraylist() {
         return arraylist;
     }
 
-    public void setAllaylist(ArrayList<String[]> allaylist) {
-        this.arraylist = allaylist;
+    public void setArraylist(ArrayList<ArrayList<String>> arraylist) {
+        this.arraylist = arraylist;
     }
     
     public void encomendar(String produto, String quantidade) {
-        NomeEQuantidade[0] = produto;
-        NomeEQuantidade[1] = quantidade;
-        arraylist.add(NomeEQuantidade);
+        NomeEQuantidade.add(produto);
+        NomeEQuantidade.add(quantidade);
+        this.arraylist.add(NomeEQuantidade);
     }
     
-    public String getProdutoEQuantidade (int posicaoNaArrayList, int ProdutoOuQuantidade) {
-        String[] ProdutoOuQuantidadeString = arraylist.get(posicaoNaArrayList);
-        return ProdutoOuQuantidadeString[ProdutoOuQuantidade];
+    public String getProdutoOuQuantidade (int posicaoNaArrayList, int ProdutoOuQuantidade) {
+        NomeEQuantidade = arraylist.get(posicaoNaArrayList);
+        return NomeEQuantidade.get(ProdutoOuQuantidade);
     }
 
     public double getSaldoPedido() {
