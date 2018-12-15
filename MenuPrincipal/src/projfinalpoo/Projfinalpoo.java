@@ -1220,7 +1220,7 @@ public class Projfinalpoo {
 
     public static void main(String[] args) throws IOException, Exception {
         leitura();
-//        classeGestor = new Gestor("GestorPrincipal", "2", true, 1000);
+//        classeGestor = new Gestor("GestorPrincipal", "gestor", true, 1000);
 //        arrayGestor.add(classeGestor);
 
 //        classeCliente = new Cliente("1", "1");
