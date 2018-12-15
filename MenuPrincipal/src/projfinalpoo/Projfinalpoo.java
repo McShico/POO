@@ -597,9 +597,7 @@ public class Projfinalpoo {
         System.out.println("|       O QUE PRETENDE EDITAR?        |");
         System.out.println("|                                     |");
         System.out.println("|   1. NOME                           |");
-        System.out.println("|   2. QUANTIDADE DE ENCOMENDAS       |");
-        System.out.println("|   3. QUANTIDADE DE ENCOMENDAS TOTAL |");
-        System.out.println("|   4. RECURSOS NECESSARIOS PARA A    |");
+        System.out.println("|   2. RECURSOS NECESSARIOS PARA A    |");
         System.out.println("|      SUA PRODUÇÃO                   |");
         System.out.println("|   0. VOLTAR                         |");
         System.out.println("|                                     |");
@@ -612,16 +610,6 @@ public class Projfinalpoo {
                 arrayProduto.get(produto - 1).setNome(myinputs.Ler.umaString());
                 break;
             case 2:
-                System.out.println("|       QUANIDADE DE ENCOMENDAS       |");
-                System.out.println("|            QUE PRETENDE?            |");
-                arrayProduto.get(produto - 1).setQuantidadeEncomendada(myinputs.Ler.umInt());
-                break;
-            case 3:
-                System.out.println("|    QUANIDADE TOTAL DE ENCOMENDAS    |");
-                System.out.println("|            QUE PRETENDE?            |");
-                arrayProduto.get(produto - 1).setQuantidadeEncomendadaTotal(myinputs.Ler.umInt());
-                break;
-            case 4:
                 System.out.println("INSIRA QUANTOS RECURSOS SÃO NECESSARIOS:");
                 int recursosNecessarios = myinputs.Ler.umInt();
                 String[] string = new String[recursosNecessarios];
