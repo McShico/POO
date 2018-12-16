@@ -46,4 +46,8 @@ public class Cliente extends Utilizador implements Serializable {
     public void incSaldoPedido(double saldoPedido) {
         this.saldoPedido += saldoPedido;
     }
+    
+    public void decSaldoPedido(double saldoPedido) {
+        this.saldoPedido -= saldoPedido;
+    }
 }
