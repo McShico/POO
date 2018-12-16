@@ -12,24 +12,32 @@ import java.util.ArrayList;
 import javax.xml.bind.DatatypeConverter;
 
 public class Projfinalpoo {
-
+    
+    //Temos 4 public static ArrayLists, uma para cada construtor que necessita de guardar cada um dos seu objetos nos ficheiros binários (.dat)
     public static ArrayList<Produto> arrayProduto = new ArrayList<Produto>();
     public static ArrayList<Recurso> arrayRecurso = new ArrayList<Recurso>();
     public static ArrayList<Cliente> arrayCliente = new ArrayList<Cliente>();
     public static ArrayList<Gestor> arrayGestor = new ArrayList<Gestor>();
 
+    /*ADICIONAR*/
     public static Produto classeProduto;
     public static Recurso classeRecurso;
     public static Cliente classeCliente;
     public static Gestor classeGestor;
 
+    /*ADICIONAR*/
     public static String utilizadorLoginAtual;
     public static int indiceUtilizadorAtualArraylist;
 
+    //Este inteiro é usado para todas as opções de cada menu
     public static int opcaoMenu;
 
     // ********************** Login ****************************
     public static void menuPrincipal() throws Exception {
+        //Este é o menu principal onde o utilizador pode escolher entre 3 opções:
+            //->Efetuar um LogIn com uma conta já existente;
+            //->Criar uma nova conta;
+            //->Ou sair do programa;
         System.out.println("+-------------- MENU --------------+");
         System.out.println("|                                  |");
         System.out.println("|      1 - Efetuar LOGIN           |");
@@ -56,16 +64,21 @@ public class Projfinalpoo {
             case 0:
                 System.out.println("");
                 System.out.println("********** Até uma próxima *********");
+                //Antes de o programa fechar vai guardar toda a informação que foi sendo aramazenada nas public static ArrayLists através destas funções
                 escritaProduto();
                 escritaRecurso();
                 escritaCliente();
                 escritaGestor();
+                //Para evitar qualquer erro, o programa efetua um exit(0) de modo a fechar o programa defenitivamente quando esta opção é selecionada
                 exit(0);
                 break;
         }
     }
 
     public static void menuLogin() throws Exception {
+        //Este é o menu onde o utilizador pode efetuar um LogIn com uma conta já existente
+        //Antes de poder introduzir o seu username e a sua password, o utilizador tem de indicar que tipo de conta é que pretende carregar
+        //Este pedido é feito de modo a que seja verificada de emediato a ArrayList que contem os Clientes ou os Gestores
         System.out.println("+-------------- LOGIN -------------+");
         System.out.println("|                                  |");
         System.out.println("|    INTRODUZA O TIPO DE CONTA     |");
@@ -83,8 +96,10 @@ public class Projfinalpoo {
         System.out.print("|           ");
 
         String username = myinputs.Ler.umaString();
+
+        //Caso o utilizador escolha cancelar o seu LogIn é levado novamente para o menu principal
         
-        if (username.equals("0")) menuRegistar();
+        if (username.equals("0")) menuPrincipal();
 
         System.out.println("|                                  |");
         System.out.println("|         INTRODUZA PASSWORD       |");
@@ -92,16 +107,20 @@ public class Projfinalpoo {
 
         String password = myinputs.Ler.umaString();
         
-        if (password.equals("0")) menuRegistar();
+        if (password.equals("0")) menuPrincipal();
         
-        password = getHash(password.getBytes(), "SHA-256");
+        //Nesta função é calculado o hash da password 
+        password = setHash(password.getBytes(), "SHA-256");
 
         switch (opcaoMenu) {
             case 1:
+                //Caso não haja nenhum objeto dentro da arrayCliente (ou seja, nenhum cliente registado) o programa avisa o utilizador de tal
                 if (arrayCliente.isEmpty()) {
                     System.err.println(" Ainda não existem contas de cliente");
                 } else {
-                    
+                //Caso haja pelo menos um objeto dentro da arrayCliente o programa irá vericar se o username e a password existem na mesma posicção da ArrayList
+                //Se sim, o utilizador pode seguir para o menu dos clientes
+                //Se não, o programa volta para o menu principal
                     for (int i = 0; i < arrayCliente.size(); i++) {
                         if (arrayCliente.get(i).getNomeUtilizador().equals(username) && arrayCliente.get(i).getPassword().equals(password)) {
                             indiceUtilizadorAtualArraylist = i;
@@ -112,16 +131,21 @@ public class Projfinalpoo {
                 }
                 break;
             case 2:
+                //No ficheiro binário gestor.dat exite um objeto predefindo que corresponde a uma conta que o programa assume como a conta do gestor principal
+                //Essa conta encontra-se na primeira posição da ArrayList e é a que tem mais autoridade entre todas as outras contas de gestores (mais informação nos comentários da função menuGestorContaPrincipal())
+                //Daí o programa fazer uma vereficação especial para esta conta
                 if (arrayGestor.get(0).getNomeUtilizador().equals(username) && arrayGestor.get(0).getPassword().equals(password) && arrayGestor.get(0).getAcesso()) {
                     indiceUtilizadorAtualArraylist = 0;
                     menuGestorContaPrincipal();
                 }
+                //Caso o programa verifique que a conta não é a do gestor principal ele começa a verificar a ArrayList ineteira da mesma forma que verificou para a arrayCliente
                 for (int i = 1; i < arrayGestor.size(); i++) {
                     if (arrayGestor.get(i).getNomeUtilizador().equals(username) && arrayGestor.get(i).getPassword().equals(password) && arrayGestor.get(i).getAcesso()) {
                         indiceUtilizadorAtualArraylist = i;
                         menuGestor();
                     }
                 }
+                //Se a verificação falhar, o programa afirma que o username e/ou a password estão incorretos
                 System.err.println("  Utilizador ou password errado(s)  ");
                 System.err.println("      ou ainda não tem acesso.      ");
 
@@ -134,6 +158,7 @@ public class Projfinalpoo {
     }
 
     public static void menuRegistar() throws Exception {
+        //Este é o menu de registo onde o utilizador pode criar uma conta
         System.out.println("+------------ REGISTO -------------+");
         System.out.println("|                                  |");
         System.out.println("|     INTRODUZA O TIPO DE CONTA    |");
@@ -152,18 +177,25 @@ public class Projfinalpoo {
         System.out.print("|          ");
         String novoUsername = myinputs.Ler.umaString();
         
-        if (novoUsername.equals("0")) menuRegistar();
+        //Caso o utilizador escolha cancelar o seu registo é levado novamente para o menu principal
+        
+        if (novoUsername.equals("0")) menuPrincipal();
 
         System.out.println("|                                  |");
         System.out.println("|        INTRODUZA PASSWORD        |");
         System.out.print("|          ");
         String novaPassword = myinputs.Ler.umaString();
         
-        if (novaPassword.equals("0")) menuRegistar();
+        if (novaPassword.equals("0")) menuPrincipal();
         
-        novaPassword = getHash(novaPassword.getBytes(), "SHA-256");
+        //Nesta função é calculado o hash da password
+        novaPassword = setHash(novaPassword.getBytes(), "SHA-256");
         
         switch (opcaoMenu) {
+            
+            //Tanto no primeiro como no segundo caso, o programa irá verificar se o username existe em ambas as ArrayLists de contas (arrayCliente e arrayGestor)
+            //Caso o username já exista, o programa afirma que tal está indisponível e manda o utilizador para o menu principal
+            //Caso não seja introduzido um username, o programa afirma que o tal não pode ser feito e manda este para o inicio do menu de registar
             case 1:
                 for (int i = 0; i < arrayCliente.size(); i++) {
                     if (arrayCliente.get(i).getNomeUtilizador().equals(novoUsername)) {
@@ -224,8 +256,15 @@ public class Projfinalpoo {
 
     // ************************ Cliente ************************
     public static void menuCliente() throws Exception {
+        //Este é o menu do cliente
+        //Neste menu, o utilizador pode:
+            //-> Encomendar produtos
+            //-> Carregar a sua conta
+            //-> Eleminar a sua conta
+            //-> Terminar a sessão
         System.out.println("+------------- Cliente ------------+");
         System.out.println("|                                  |");
+        //No sout abaixo podemos ver que o programa vai buscar o saldo disponível do cliente
         System.out.println("|     SALDO: " + arrayCliente.get(indiceUtilizadorAtualArraylist).conta.getSaldo());
         System.out.println("|                                  |");
         System.out.println("|     1. ENCOMENDAR PRODUTOS       |");
@@ -265,12 +304,14 @@ public class Projfinalpoo {
     }
 
     public static void menuEncomendarProdutos() throws Exception {
+        //Neste menu, o utilizador pode emcomendar todo o tipo de produtos disponíveis na ArrayList dos produtos
         System.out.println("+--------------Cliente-------------+");
         System.out.println("+-------------PRODUTOS-------------+");
         System.out.println("|                                  |");
         System.out.println("|      SALDO: " + arrayCliente.get(indiceUtilizadorAtualArraylist).conta.getSaldo());
         System.out.println("|                                  |");
 
+        //Nesta
         for (int i = 0; i < arrayProduto.size(); i++) {
             System.out.println("|      " + (i + 1) + ". " + arrayProduto.get(i).getNome());
         }
@@ -1255,7 +1296,7 @@ public class Projfinalpoo {
     }
 // ********************** Transferir Dados ********************** //  
 
-    public static String getHash(byte[] bytes, String alg) {
+    public static String setHash(byte[] bytes, String alg) {
         String hash = "";
         try {
             MessageDigest message = MessageDigest.getInstance(alg);
@@ -1270,13 +1311,13 @@ public class Projfinalpoo {
 
     public static void main(String[] args) throws IOException, Exception {
         leitura();
-//        classeGestor = new Gestor("GestorPrincipal", getHash("gestor".getBytes(), "SHA-256"), true, 1000);
+//        classeGestor = new Gestor("GestorPrincipal", setHash("gestor".getBytes(), "SHA-256"), true, 1000);
 //        arrayGestor.add(classeGestor);
 //
-//        classeCliente = new Cliente("Albertino", getHash("albertino".getBytes(), "SHA-256"));
+//        classeCliente = new Cliente("Albertino", setHash("albertino".getBytes(), "SHA-256"));
 //        arrayCliente.add(classeCliente);
 //
-//        classeCliente = new Cliente("Josefina", getHash("josegina".getBytes(), "SHA-256"));
+//        classeCliente = new Cliente("Josefina", setHash("josegina".getBytes(), "SHA-256"));
 //        arrayCliente.add(classeCliente);
 //        String[] recursos = {"leite", "ovo"};
 //        classeProduto = new Produto("bolo", 5, recursos, 2);
