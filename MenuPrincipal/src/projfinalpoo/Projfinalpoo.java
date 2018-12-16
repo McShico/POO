@@ -19,13 +19,11 @@ public class Projfinalpoo {
     public static ArrayList<Cliente> arrayCliente = new ArrayList<Cliente>();
     public static ArrayList<Gestor> arrayGestor = new ArrayList<Gestor>();
 
-    /*ADICIONAR*/
     public static Produto classeProduto;
     public static Recurso classeRecurso;
     public static Cliente classeCliente;
     public static Gestor classeGestor;
 
-    /*ADICIONAR*/
     public static String utilizadorLoginAtual;
     public static int indiceUtilizadorAtualArraylist;
 
@@ -1383,17 +1381,14 @@ public class Projfinalpoo {
 
     public static void main(String[] args) throws IOException, Exception {
         leitura();
-//        classeGestor = new Gestor("GestorPrincipal", setHash("gestor".getBytes(), "SHA-256"), true, 1000);
-//        arrayGestor.add(classeGestor);
-//
-//        classeCliente = new Cliente("Albertino", setHash("albertino".getBytes(), "SHA-256"));
-//        arrayCliente.add(classeCliente);
-//
-//        classeCliente = new Cliente("Josefina", setHash("josegina".getBytes(), "SHA-256"));
-//        arrayCliente.add(classeCliente);
-//        String[] recursos = {"leite", "ovo"};
-//        classeProduto = new Produto("bolo", 5, recursos, 2);
-//        arrayProduto.add(classeProduto);
+        
+        //Conta do Gestor Principal:
+            //->Username: GestorPrincipal
+            //->Password: gestor
+            
+        //Conta de um Cliente Teste:
+            //->Username: ClienteTeste
+            //->Password: cliente
 
         menuPrincipal();
 
