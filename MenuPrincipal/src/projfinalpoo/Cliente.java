@@ -25,6 +25,7 @@ public class Cliente extends Utilizador implements Serializable {
     }
     
     public void encomendar(String produto, String quantidade) {
+        String[] NomeEQuantidade = new String[2];
         NomeEQuantidade[0] = produto;
         NomeEQuantidade[1] = quantidade;
         arraylist.add(NomeEQuantidade);
@@ -33,6 +34,10 @@ public class Cliente extends Utilizador implements Serializable {
     public String getProdutoEQuantidade (int posicaoNaArrayList, int ProdutoOuQuantidade) {
         String[] ProdutoOuQuantidadeString = arraylist.get(posicaoNaArrayList);
         return ProdutoOuQuantidadeString[ProdutoOuQuantidade];
+    }
+    
+    public void removerProdutoEQuantidade(int indice){
+        arraylist.remove(indice);
     }
 
     public double getSaldoPedido() {
